@@ -1,0 +1,163 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	
+	margin:0px;
+	padding: 0px;
+	
+} 
+
+.container-fluid {
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
+    font-size: 28px;
+	 
+}
+
+.header {
+	position:relative;
+	box-shadow: 0 3px 5px 3px #C3C3C3 ;
+}
+
+.logo{	}
+
+.logo img{
+	width:180px;
+	padding: 15px 0 0px 0px;
+	
+}
+
+.logo b {
+    position: absolute;
+    left: 215px;
+    top: 93px;
+	font-size: 18px;
+	color:#8C8C8C;
+	width:300px;
+	
+}
+
+.nav-box {
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	width:100%;
+}
+
+.options {
+	font-size: 40px;
+}
+
+.options a {
+	    color:#000000;
+	    margin-top:8px;
+	    text-decoration: none;
+	    float:right;
+	    width:240px;
+	    height: 120px;
+	    text-align: center;
+	    line-height: 130px;
+}
+
+
+.options .active{
+    background-color:#FF0096;
+    color:aliceblue;    	 	
+    text-decoration: none;
+}
+
+.options .nonActive  { 
+    border-bottom:#00B4AA solid;
+    border-bottom-width: 4px;
+    color: #000000;
+}
+
+.options .nonActive:hover  { 
+    background-color:#00B4AA ;
+    color:aliceblue;
+    text-decoration: none;
+}
+
+.content {
+ height:750px;	
+}
+
+.register-box{
+	padding-top: 50px;
+	margin-left: 30px;
+	
+	
+}
+
+.email-box{
+	width:70%;
+	
+}
+
+.email-box input {
+	margin: -5px 0 30px 0;
+	
+}
+
+.birth-box input {
+	width: 100%;
+	margin-top:5px;
+	
+}
+
+.gender-check{
+	margin: 25px 0 25px 0;
+	
+}
+
+.pass-box #inputPassword {
+	margin-top:-10px;
+	width:70%;
+}
+
+.pass-box #inputConfirmPassword {
+	width:70%;
+	
+}
+
+.pass-box small{
+	font-size: 16px;
+	margin-top: -5px;
+	color: #8C8C8C;
+	
+}
+
+.agreement-box {
+	font-size: 20px;
+
+}
+
+.agreement-box a {
+		color:#FF0096;
+}
+
+.button-box input {
+	width:30%;
+	height: 60px;
+	margin-top: 10px;
+	font-size: 20px;
+	
+}
+.footer{
+	background-color:#707070;
+	color:#FFFFFF;
+    margin-top:50px;
+	padding: 20px 40px 10px 20px;
+	
+}
+.footertext {
+	
+ 
+	
+}
+
+
+
+
+
+
