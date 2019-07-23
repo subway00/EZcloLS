@@ -1,6 +1,8 @@
-package Member;
+package FileManager;
 
+import model.DBConnectModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,36 +11,36 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DBConnectModel;
+import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "RenameFileController", urlPatterns = {"/RenameFileController"})
-public class RenameFileController extends HttpServlet {
+@WebServlet(name = "DeleteFileController", urlPatterns = {"/DeleteFileController"})
+public class DeleteFileController extends HttpServlet {
 
-    String query = "UPDATE FileFolder SET F_Name=? WHERE F_Name=? AND F_Able='1'";
-    DBConnectModel dbc;
+    HttpSession session;
+    DBConnectModel dbcm;
+    String query = "UPDATE FileFolder SET F_Able=0 WHERE F_Name=? AND M_Number=?";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        dbc = new DBConnectModel();
+        PrintWriter out = response.getWriter();
+        dbcm = new DBConnectModel();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (
-                    Connection con = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
+                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);) {
-                String renamefile = request.getParameter("rename");
-                String thisfilename = request.getParameter("thisname");
-                System.out.println("renamefile===" + renamefile);
-                System.out.println("thisfilename===" + thisfilename);
-                pstmt.setString(1, renamefile);
-                pstmt.setString(2, thisfilename);
-               
+                String delete = request.getParameter("deletefilename");
+                pstmt.setString(1, delete);
+                //get M_Number session
+                session = request.getSession();
+                int mnumber = (Integer) session.getAttribute("M_Number");
+                pstmt.setInt(2, mnumber);
                 pstmt.executeUpdate();
+                out.write("");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -33,20 +33,12 @@
         <servlet-class>model.DBConnectModel</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LogOutController</servlet-name>
-        <servlet-class>Member.LogOutController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>RecoverAccServlet</servlet-name>
         <servlet-class>Member.RecoverAccServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateNewFileServlet</servlet-name>
         <servlet-class>Member.CreateNewFileServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AbleFileController</servlet-name>
-        <servlet-class>Member.AbleFileController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CheckAnswerServlet</servlet-name>
@@ -81,10 +73,6 @@
         <url-pattern>/DBConnectSetting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LogOutController</servlet-name>
-        <url-pattern>/LogOutController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>RegisterController</servlet-name>
         <url-pattern>/RegisterController</url-pattern>
     </servlet-mapping>
@@ -97,14 +85,9 @@
         <url-pattern>/CreateNewFileServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AbleFileController</servlet-name>
-        <url-pattern>/AbleFileController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CheckAnswerServlet</servlet-name>
         <url-pattern>/CheckAnswerServlet</url-pattern>
     </servlet-mapping>
-    
     <session-config>
         <session-timeout>
             30

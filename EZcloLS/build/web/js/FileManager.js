@@ -13,11 +13,11 @@ $(function () {
         if (isEmptyObject(newfile)) {
             alert("尚未輸入資料夾名稱請重新輸入");
         } else {
-            $.post("/EZclo/NewFileCheck", {newfile: newfile}, function (data) {
+            $.post("/EZcloLS/NewFileCheck", {newfile: newfile}, function (data) {
                 if (data === "ERROR") {
                     alert("重複資料夾名稱，請重新輸入");
                 } else {
-                    $.post("/EZclo/FileManager/NewFileView.jsp", {newfile: newfile}, function (data) {
+                    $.post("/EZcloLS/FileManager/NewFileView.jsp", {newfile: newfile}, function (data) {
                         $(".file-card-area").html(data);
                         ableFile();
                         OptionFileModal();
@@ -33,8 +33,8 @@ $(function () {
         thisfilename = $(this).parent().siblings("p").text();
         $(document).on("click", ".renamefile", function () {
             rename = $(this).parent().siblings(".modal-body").find(".rename").val();
-            $.post("/EZclo/NewFileCheck", {rename: rename}, function (data) {
-                $.post("/EZclo/RenameFileController", {rename: rename, thisname: thisfilename}, function () {
+            $.post("/EZcloLS/NewFileCheck", {rename: rename}, function (data) {
+                $.post("/EZcloLS/RenameFileController", {rename: rename, thisname: thisfilename}, function () {
                     ableFile();
                     OptionFileModal();
                     bindModal();
@@ -47,7 +47,7 @@ $(function () {
     $(document).on("click", ".file-edit", function () {
         deletefilename = $(this).parent().siblings("p").text();
         $(document).on("click", ".deletefile", function () {
-            $.post("/EZclo/DeleteFileController", {deletefilename: deletefilename}, function () {
+            $.post("/EZcloLS/DeleteFileController", {deletefilename: deletefilename}, function () {
                 ableFile();
                 OptionFileModal();
                 bindModal();
@@ -58,7 +58,7 @@ $(function () {
     //click new test
     $(document).on("click", ".newtest", function () {
         var newtest = $("#recipient-name2").val();
-        $.post("/EZclo/FileManager/NewTestView.jsp", {newtest: newtest}, function (data) {
+        $.post("/EZcloLS/FileManager/NewTestView.jsp", {newtest: newtest}, function (data) {
             $("tbody").html(data);
             OptionFileModal();
             bindModal();
@@ -67,7 +67,7 @@ $(function () {
     });
     $(document).on("click", ".deletetest", function () {
         var testnumber = $(this).siblings("input").val();
-        $.post("/EZclo/FileManager/DeleteTestView.jsp", {testnumber: testnumber}, function (data) {
+        $.post("/EZcloLS/FileManager/DeleteTestView.jsp", {testnumber: testnumber}, function (data) {
             $("tbody").html(data);
             OptionFileModal();
             bindModal();
@@ -78,7 +78,7 @@ $(function () {
     $(document).on("click", ".renametest", function () {
         var testnumber = $(this).siblings("input").val();
         var rename = $(this).parents().siblings(".modal-body").find(".rename").val();
-        $.post("/EZclo/FileManager/RenameTestView.jsp", {testnumber: testnumber, rename: rename}, function (data) {
+        $.post("/EZcloLS/FileManager/RenameTestView.jsp", {testnumber: testnumber, rename: rename}, function (data) {
             $("tbody").html(data);
             OptionFileModal();
             bindModal();
@@ -88,23 +88,23 @@ $(function () {
     //Click file get test
     $(document).on("click", ".card-header p", function () {
         clickfile = $(this).text();
-        $.post("/EZclo/FileManager/AbleTest.jsp", {clickfile: clickfile}, function (data) {
+        $.post("/EZcloLS/FileManager/AbleTest.jsp", {clickfile: clickfile}, function (data) {
             $("tbody").html(data);
             ableFile();
         })
-        $.post("/EZclo/FileManager/OptionFileModal.jsp", {clickfile: clickfile}, function (data) {
+        $.post("/EZcloLS/FileManager/OptionFileModal.jsp", {clickfile: clickfile}, function (data) {
             $("#modalgrow").html(data);
         })
     })
     //Account Inf
     $(document).on("click", ".accountInf", function () {
-        $.post("/EZclo/AccountInf", function (jsonObj) {
+        $.post("/EZcloLS/AccountInf", function (jsonObj) {
             $("#exampleModalLong").find("#accIF_email").val(jsonObj.M_Email);
             $("#exampleModalLong").find("#accIF_gender").val(genderConvert(jsonObj.M_Gender));
             $("#exampleModalLong").find("#accIF_born").val(jsonObj.M_Born);
         });
     });
-    //判斷兩次密碼是否相同
+    //帳號資訊:判斷兩次密碼是否相同
     $(document).on("blur", "#accIF_pw1", function () {
         var pw1 = $(this).val();
         $(document).on("blur", "#accIF_pw2", function () {
@@ -114,7 +114,7 @@ $(function () {
     })
     //reverse PW
     $(document).on("click", "#reversePwbtn", function () {
-        $.post("/EZclo/ReversePw", {pw: pw2});
+        $.post("/EZcloLS/ReversePw", {pw: pw2});
         bindModal();
         closeModal();
         $("#accIF_pw1").val("");
@@ -129,17 +129,17 @@ function isEmptyObject(obj) {
     return true;
 }
 function ableFile() {
-    $.get("/EZclo/FileManager/AbleFile.jsp", function (data) {
+    $.get("/EZcloLS/FileManager/AbleFile.jsp", function (data) {
         $(".file-card-area").html(data);
     });
 }
 function ableTest() {
-    $.get("/EZclo/FileManager/AbleTest.jsp", function (data) {
+    $.get("/EZcloLS/FileManager/AbleTest.jsp", function (data) {
         $("tbody").html(data);
     });
 }
 function OptionFileModal() {
-    $.get("/EZclo/FileManager/OptionFileModal.jsp", function (data) {
+    $.get("/EZcloLS/FileManager/OptionFileModal.jsp", function (data) {
         $("#modalgrow").html(data);
     });
 }

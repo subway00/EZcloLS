@@ -1,69 +1,58 @@
-package Member;
+package FileManager;
 
+import model.IndexProducerModel;
+import model.DBConnectModel;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Collection;
-import model.DBConnectModel;
+import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "NewTestController", urlPatterns = {"/NewTestController"})
-public class NewTestController extends HttpServlet {
-    Map<String, String> map;
-    DBConnectModel dbc;
-    String query = "INSERT INTO Test (T_Name, T_Able) VALUES ( ?, 1)";
-    String searchquery = "SELECT T_Number,T_Name FROM Test WHERE T_Able=1 ORDER BY T_Number";
+@WebServlet(name = "AbleFileController", urlPatterns = {"/AbleFileController"})
+public class AbleFileController extends HttpServlet {
+
+    HttpSession session;
+    IndexProducerModel index;
+    ArrayList<String> arr;
+    DBConnectModel dbcm;
+    String searchquery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND M_Number=? ORDER BY F_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        dbc = new DBConnectModel();
+        dbcm = new DBConnectModel();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (
-                    Connection con = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
-                    PreparedStatement pstmt = con.prepareStatement(query);) {
-                String newtest = request.getParameter("newtest");
+                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
+                    PreparedStatement pstmt = con.prepareStatement(searchquery);) {
+                //
+                System.out.println("AbleFile   M_Number");
+                session = request.getSession();
+                int mnumber = (Integer) session.getAttribute("M_Number");
 
-                pstmt.setString(1, newtest);
-                pstmt.execute();
-                try (
-                        Statement stmt = con.createStatement();) {
-                    ResultSet result = stmt.executeQuery(searchquery);
-                    map = new HashMap<>();
-                    map = getResult(result);
-                    request.setAttribute("map", map);
+                pstmt.setInt(1, mnumber);
+                ResultSet result = pstmt.executeQuery();
+                arr = new ArrayList<>();
+                while (result.next()) {
+                    String ablefile = result.getString("F_Name");
+                    arr.add(ablefile);
                 }
+                index = new IndexProducerModel();
+                request.setAttribute("ablefile", arr);
+                request.setAttribute("IndexProducer", index);
             }
-        } catch (Exception e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-    }
-
-    public Map getResult(ResultSet result) {
-        try {
-            int i = 0;
-            while (result.next()) {
-                String name = result.getString("T_Name");
-                String number = result.getString("T_Number");
-               // String time = result.getString("T_Time");
-                map.put(number , name);
-                }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return map;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

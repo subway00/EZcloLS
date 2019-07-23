@@ -4,7 +4,7 @@
 <%
         int i = 0;
         int j = 0;
-        RequestDispatcher rd = request.getRequestDispatcher("../AbleFileController");
+        RequestDispatcher rd = request.getRequestDispatcher("/EZcloLS/AbleFileController");
         rd.include(request, response);
 //        ArrayList<String> resultArr = (ArrayList<String>) request.getAttribute("resultArr");
 %>

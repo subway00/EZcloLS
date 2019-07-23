@@ -36,19 +36,24 @@ public class LoginController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        try(PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             DBController dbc = new DBController();
-            ResultSet result = dbc.select("EZclo.dbo.Member",new String[]{"M_Number"}," M_Email='" + email + "' and M_PW='" + password + "' and M_Active='true';");
+            ResultSet result = dbc.select("EZclo.dbo.Member", new String[]{"M_Number"}, " M_Email='" + email + "' and M_PW='" + password + "' and M_Active='true';");
 
             if (result != null && result.next()) {
                 HttpSession session = request.getSession();
                 ContentValues values = new ContentValues();
                 int index = result.getInt("M_Number");
+                System.out.println("M_Number        " + index);
                 //hidden uid
                 //String uid = utils.generatePassCode(index);
                 //values.putString("M_Uid",uid);
                 //dbc.update("EZclo.dbo.Member", values,"M_Number="+ index);
+
                 session.setAttribute("email", email);
+                session.setAttribute("M_Number", index);
+                                      
+
                 page = SUCCESS_PATH;
                 response.sendRedirect(page);
             } else {
@@ -56,7 +61,6 @@ public class LoginController extends HttpServlet {
                 utils.setWarning(out, "login fail", page);
             }
 
-            
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

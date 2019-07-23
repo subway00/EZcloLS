@@ -1,5 +1,6 @@
-package Member;
+package FileManager;
 
+import model.DBConnectModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
@@ -17,59 +18,42 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Collection;
 import javax.servlet.RequestDispatcher;
-import model.DBConnectModel;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "NewFileController", urlPatterns = {"/NewFileController"})
 public class NewFileController extends HttpServlet {
 
+    HttpSession session;
     Map<Integer, String> map;
-    DBConnectModel dbc;
-    String ynrepeatQuery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND F_Name=? ORDER BY F_Number";
-    String query = "INSERT INTO FileFolder (F_Name, F_Able) VALUES (?, 1)";
-    String searchquery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 ORDER BY F_Number";
-    
+    DBConnectModel dbcm;
+
+    String query = "INSERT INTO FileFolder (F_Name, F_Able, M_Number) VALUES (?, 1, ?)";
+    String searchquery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND M_Number=? ORDER BY F_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        dbc = new DBConnectModel();
+
+        dbcm = new DBConnectModel();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (
-                    Connection con = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
-                    //                    Connection con = dbc.getCon();
+                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);
-                    PreparedStatement ynrepeat = con.prepareStatement(ynrepeatQuery);
-                    ) {
+                    PreparedStatement pstmt2 = con.prepareStatement(searchquery);) {
                 String newfile = request.getParameter("newfile");
-                
-                ynrepeat.setString(1, newfile);
-                //查詢結果有相同資料名
-                if(! ynrepeat.execute()) {
-                    RequestDispatcher rd = request.getRequestDispatcher("/EZcloLS/FileManager/Error.jsp");
-                    rd.forward(request, response);
-                }
-                
-                
                 pstmt.setString(1, newfile);
+                //get session
+                session = request.getSession();
+                int mnumber = (Integer) session.getAttribute("M_Number");
+                //new file
+                pstmt.setInt(2, mnumber);
                 pstmt.execute();
-                try (
-                        Statement stmt = con.createStatement();) {
-                    ResultSet result = stmt.executeQuery(searchquery);
-                    map = new HashMap<>();
-                    Map<Integer, String> map = getResult(result);
-                    Collection <String> value;
-//                    value = map.values();
-//                    for (String tt : value ) {
-//                        System.out.println("-----------");
-//                        System.out.println(tt);
-//                    }
-//                    System.out.println(map);
-//                    for (String a : resultArr) {
-//                        System.out.println(a);
-//                    }
-                    request.setAttribute("map", map);
-                }
+                //select file
+                pstmt2.setInt(1, mnumber);
+                ResultSet result = pstmt2.executeQuery(searchquery);
+                map = new HashMap<>();
+                Map<Integer, String> map = getResult(result);
+                request.setAttribute("map", map);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,13 +65,12 @@ public class NewFileController extends HttpServlet {
         try {
             int i = 0;
             while (result.next()) {
-                
-                
+
                 String name = result.getString("F_Name");
-                map.put(i++ ,name);
+                map.put(i++, name);
                 //System.out.println("name------" + name);
-                }
-            
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

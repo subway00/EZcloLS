@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%
     int i = 0;
-    RequestDispatcher rd = request.getRequestDispatcher("../OptionModalController");
+    RequestDispatcher rd = request.getRequestDispatcher("/EZcloLS/OptionModalController");
     rd.include(request, response);
 
 %>

@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Member;
+package FileManager;
 
+import model.IndexProducerModel;
+import model.DBConnectModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,38 +15,48 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DBConnectModel;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author pig94
- */
-@WebServlet(name = "FileDeleteController", urlPatterns = {"/FileDeleteController"})
-public class FileDeleteController extends HttpServlet {
+@WebServlet(name = "AbleTestController", urlPatterns = {"/AbleTestController"})
+public class AbleTestController extends HttpServlet {
 
-   IndexProducer index;
+    HttpSession session;
+    IndexProducerModel index;
     ArrayList<String> arr;
-    DBConnectModel dbc;
-    String searchquery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 ORDER BY F_Number";
+    DBConnectModel dbcm;
+    String searchfile = "SELECT F_Number FROM FileFolder WHERE F_Able=1 AND F_Name=?";
+    String searchquery = "SELECT T_Name FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        dbc = new DBConnectModel();
+        dbcm = new DBConnectModel();
+        session = request.getSession();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (
-                    Connection con = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
-                    Statement stmt = con.createStatement();) {
-                ResultSet result = stmt.executeQuery(searchquery);
+                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
+                    PreparedStatement pstmt = con.prepareStatement(searchfile);
+                    PreparedStatement pstmt2 = con.prepareStatement(searchquery)) {
+                String selectfile = request.getParameter("clickfile");
+                pstmt.setString(1, selectfile);
+                ResultSet result = pstmt.executeQuery();
+                //filenumber initial
+                int filenumber = 0;
+                while (result.next()) {
+                    filenumber = result.getInt("F_Number");
+                }
+                //set session
+                session.setAttribute("choosefile", filenumber);
+                pstmt2.setInt(1, filenumber);
+                ResultSet result2 = pstmt2.executeQuery();
                 arr = new ArrayList<>();
-                while ( result.next()) {
-                    String ablefile = result.getString("F_Name");
+                while (result2.next()) {
+                    String ablefile = result2.getString("T_Name");
                     arr.add(ablefile);
                 }
-                index = new IndexProducer();
-                request.setAttribute("ablefile", arr);
+                index = new IndexProducerModel();
+                request.setAttribute("ableTest", arr);
                 request.setAttribute("IndexProducer", index);
-                System.out.println(arr);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -97,4 +104,3 @@ public class FileDeleteController extends HttpServlet {
     }// </editor-fold>
 
 }
-

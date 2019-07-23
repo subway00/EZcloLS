@@ -5,7 +5,7 @@
 <%
     int k = 0;
     int l = 0;
-    RequestDispatcher rd = request.getRequestDispatcher("../AbleTestController");
+    RequestDispatcher rd = request.getRequestDispatcher("/EZcloLS/AbleTestController");
     rd.include(request, response);
 %>
 <c:forEach var="testname" items="${ableTest}">

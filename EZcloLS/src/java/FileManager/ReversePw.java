@@ -1,52 +1,51 @@
-package Member;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package FileManager;
 
+import model.DBConnectModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Member.IndexProducer;
-import model.DBConnectModel;
+import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "AbleFileController", urlPatterns = {"/AbleFileController"})
-public class AbleFileController extends HttpServlet {
-    IndexProducer index;
-    ArrayList<String> arr;
-    DBConnectModel dbc;
-    String searchquery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 ORDER BY F_Number";
+@WebServlet(name = "ReversePw", urlPatterns = {"/ReversePw"})
+public class ReversePw extends HttpServlet {
+
+    DBConnectModel dbcm;
+    String reverseQuery = "UPDATE Member SET M_PW=? WHERE M_Number=?";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        dbc = new DBConnectModel();
+        dbcm = new DBConnectModel();
+        HttpSession session = request.getSession();
+        response.setContentType("text/html;charset=UTF-8");
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            try (
-                    Connection con = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
-                    Statement stmt = con.createStatement();) {
-                ResultSet result = stmt.executeQuery(searchquery);
-                arr = new ArrayList<>();
-                while ( result.next()) {
-                    String ablefile = result.getString("F_Name");
-                    arr.add(ablefile);
-                }
-                index = new IndexProducer();
-                request.setAttribute("ablefile", arr);
-                request.setAttribute("IndexProducer", index);
+            try (PrintWriter out = response.getWriter();
+                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
+                    PreparedStatement pstmt = con.prepareStatement(reverseQuery);) {
+                String pw = request.getParameter("pw");
+                pstmt.setString(1, pw);
+                int mnumber = (Integer) session.getAttribute("M_Number");
+                pstmt.setInt(2, mnumber);
+                pstmt.executeUpdate();
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
     /**
      * Handles the HTTP <code>GET</code> method.
      *
