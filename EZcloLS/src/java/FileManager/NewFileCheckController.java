@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "NewFileCheck", urlPatterns = {"/NewFileCheck"})
+@WebServlet(name = "NewFileCheck", urlPatterns = {"/NewFileCheckController"})
 public class NewFileCheckController extends HttpServlet {
     
     HttpSession session;
