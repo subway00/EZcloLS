@@ -1,14 +1,14 @@
-package FileManager;
+package model;
 
 import java.util.Date;
 
-public class AccountStorage {
+public class AccountStorageModel {
 
     private String mEmail;
     private String mGender;
     private Date mBorn;
     
-    public AccountStorage(String mEmail, String mGender, Date mBorn) {
+    public AccountStorageModel(String mEmail, String mGender, Date mBorn) {
         this.mEmail = mEmail;
         this.mGender = mGender;
         this.mBorn = mBorn;

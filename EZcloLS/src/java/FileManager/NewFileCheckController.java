@@ -14,10 +14,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "NewFileCheck", urlPatterns = {"/NewFileCheck"})
-public class NewFileCheck extends HttpServlet {
-
+public class NewFileCheckController extends HttpServlet {
+    
+    HttpSession session;
     ArrayList<String> arr;
     DBConnectModel dbcm;
     String ynrepeatQuery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND F_Name=? ORDER BY F_Number";
@@ -32,6 +34,8 @@ public class NewFileCheck extends HttpServlet {
             try (Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement ynrepeat = con.prepareStatement(ynrepeatQuery);) {
                 String newfile = request.getParameter("newfile");
+                String email =(String)session.getAttribute("email");
+                System.out.println("email為:    " + email);
                 if (newfile == "") {
                     out.write("ERROR");
                 }

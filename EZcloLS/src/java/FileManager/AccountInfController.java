@@ -1,5 +1,6 @@
 package FileManager;
 
+import model.AccountStorageModel;
 import org.json.JSONObject;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,11 +19,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "AccountInf", urlPatterns = {"/AccountInf"})
-public class AccountInf extends HttpServlet {
+@WebServlet(name = "AccountInf", urlPatterns = {"/AccountInfController"})
+public class AccountInfController extends HttpServlet {
 
     JSONObject jsonObj;
-    AccountStorage accs;
+    AccountStorageModel accs;
     HttpSession session;
     DBConnectModel dbcm;
     String selectmember = "SELECT M_Email, M_Gender, M_Born FROM Member WHERE M_Number=?";
@@ -53,12 +54,8 @@ public class AccountInf extends HttpServlet {
                     map.put("M_Gender", mGender);
                     map.put("M_Born", mBorn);
                     jsonObj = new JSONObject(map);
-                    System.out.println("----------------------");
-                    System.out.println("JSON" + jsonObj);
-//                    System.out.println("mEmail" + mEmail);
-//                    accs = new AccountStorage(mEmail, mGender, mBorn);
+                    out.print(jsonObj);
                 }
-                out.print(jsonObj);
             }
         } catch (Exception e) {
             e.printStackTrace();
