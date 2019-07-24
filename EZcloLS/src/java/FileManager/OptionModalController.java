@@ -28,6 +28,7 @@ public class OptionModalController extends HttpServlet {
     String searchfile = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND M_Number=? ORDER BY F_Number";
     String searchclickfile = "SELECT F_Number FROM FileFolder WHERE F_Able=1 AND F_Name=?";
     String searchtest = "SELECT T_Name, T_Number FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
+//    String searchmnumber ="SELECT M_Number FROM Member WHERE M_Email=?";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,9 +40,15 @@ public class OptionModalController extends HttpServlet {
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt3 = con.prepareStatement(searchfile);
                     PreparedStatement pstmt = con.prepareStatement(searchclickfile);
-                    PreparedStatement pstmt2 = con.prepareStatement(searchtest);) {
+                    PreparedStatement pstmt2 = con.prepareStatement(searchtest);
+//                    PreparedStatement pstmt4 = con.prepareStatement(searchmnumber)
+                    ) {
 //                file
                 int mnumber = (Integer) session.getAttribute("M_Number");
+//                pstmt4.setString(1, email);
+//                ResultSet result1 = pstmt4.executeQuery();
+//                int mnumber = result1.getInt("M_Number");
+                //
                 pstmt3.setInt(1, mnumber);
                 ResultSet result = pstmt3.executeQuery();
                 arr = new ArrayList<>();
@@ -67,14 +74,8 @@ public class OptionModalController extends HttpServlet {
                 if (i == 0) {
                     int choosefile = (Integer) session.getAttribute("choosefile");
                     pstmt2.setInt(1, choosefile);
-                    System.out.println("---------------");
-                    System.out.println("拿到session" + choosefile);
-
                 } else {
                     pstmt2.setInt(1, i);
-                    System.out.println("---------------");
-                    System.out.println("沒拿到session");
-
                 }
 
                 ResultSet result3 = pstmt2.executeQuery();

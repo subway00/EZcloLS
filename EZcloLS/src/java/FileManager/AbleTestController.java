@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +36,7 @@ public class AbleTestController extends HttpServlet {
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(searchfile);
                     PreparedStatement pstmt2 = con.prepareStatement(searchquery)) {
+                
                 String selectfile = request.getParameter("clickfile");
                 pstmt.setString(1, selectfile);
                 ResultSet result = pstmt.executeQuery();

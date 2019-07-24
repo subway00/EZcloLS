@@ -34,7 +34,6 @@ public class AbleFileController extends HttpServlet {
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(searchquery);) {
                 //
-                System.out.println("AbleFile   M_Number");
                 session = request.getSession();
                 int mnumber = (Integer) session.getAttribute("M_Number");
 

@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <textarea id="paper" style="display: none">${Paper.getLetter()}</textarea>
-                <iframe id="edit_panel" class=" flex-fill" src="PaperEditor/EdPanel.jsp" onload="construct_paper_s()"></iframe>	
+                <iframe id="edit_panel" class=" flex-fill" src="EdPanel.jsp" onload="construct_paper_s()"></iframe>	
             </div>
 
             <div class="row footer">

@@ -5,7 +5,7 @@
 <%
     int k = 0;
     int l = 0;
-    RequestDispatcher rd = request.getRequestDispatcher("/EZcloLS/AbleTestController");
+    RequestDispatcher rd = request.getRequestDispatcher("/AbleTestController");
     rd.include(request, response);
 %>
 <c:forEach var="testname" items="${ableTest}">
@@ -15,9 +15,9 @@
         <td>2019-06-30</td>
         <td>2019-06-30</td>
         <td><div class="operate-button-box">
-                <a href="../EditCloze/Edit.html"><button type="button" class="btn btn-outline-success">編輯</button></a> 		  		
+                <a href="../PaperEditor/PaperEditor.jsp"><button type="button" class="btn btn-outline-success">編輯</button></a> 		  		
                 <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#renameTest<%=l+=1%>">命名</button>
-                <a href="../Testing/testing.html"><button type="button" class="btn btn-outline-success">測驗</button></a>	  
+                <a href="../PaperExam/PaperExam.jsp"><button type="button" class="btn btn-outline-success">測驗</button></a>	  
             </div>
         </td>	
     </tr>

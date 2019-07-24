@@ -1,64 +1,62 @@
 package FileManager;
 
-import org.json.JSONObject;
+import model.DBConnectModel;
+import java.io.PrintWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.DBConnectModel;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet(name = "AccountInf", urlPatterns = {"/AccountInf"})
-public class AccountInf extends HttpServlet {
-
-    JSONObject jsonObj;
-    AccountStorage accs;
+@WebServlet(name = "NewFileCheck", urlPatterns = {"/NewFileCheckController"})
+public class NewFileCheckController extends HttpServlet {
+    
     HttpSession session;
+    ArrayList<String> arr;
     DBConnectModel dbcm;
-    String selectmember = "SELECT M_Email, M_Gender, M_Born FROM Member WHERE M_Number=?";
+    String ynrepeatQuery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND M_Number=? ORDER BY F_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
         dbcm = new DBConnectModel();
-        //JSON
-        response.setContentType("application/json");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            try (
-                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
-                    PreparedStatement pstmt = con.prepareStatement(selectmember);) {
+            try (Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
+                    PreparedStatement ynrepeat = con.prepareStatement(ynrepeatQuery);) {
+                String newfile = request.getParameter("newfile");
                 session = request.getSession();
-                int mnumber = (Integer) session.getAttribute("M_Number");
-                pstmt.setInt(1, mnumber);
-                ResultSet result = pstmt.executeQuery();
-
-                while (result.next()) {
-                    Map map = new HashMap();
-                    String mEmail = result.getString("M_Email");
-                    String mGender = result.getString("M_Gender");
-                    Date mBorn = result.getDate("M_Born");
-                    
-                    map.put("M_Email", mEmail);
-                    map.put("M_Gender", mGender);
-                    map.put("M_Born", mBorn);
-                    jsonObj = new JSONObject(map);
-                    System.out.println("----------------------");
-                    System.out.println("JSON" + jsonObj);
-//                    System.out.println("mEmail" + mEmail);
-//                    accs = new AccountStorage(mEmail, mGender, mBorn);
+                int mnumber =(Integer)session.getAttribute("M_Number");
+                if (newfile == "") {
+                    out.write("ERROR");
                 }
-                out.print(jsonObj);
+                String renamefile = request.getParameter("renamefile");
+                //若傳入renamefile參數 擇設給newfile 做判斷
+                if (renamefile != null) {
+                    newfile = renamefile;
+                }
+                ynrepeat.setInt(1, mnumber);
+                //查詢結果有相同資料名
+                ResultSet result = ynrepeat.executeQuery();
+                arr = new ArrayList<>();
+                while (result.next()) {
+                    String reString = result.getString("F_Name");
+                    arr.add(reString);
+                }
+                if (arr.contains(newfile)) {
+                    out.write("ERROR");
+                } else {
+                    out.write("SUCCESS");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

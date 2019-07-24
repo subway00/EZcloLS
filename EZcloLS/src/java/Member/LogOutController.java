@@ -17,7 +17,7 @@ public class LogOutController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             //HttpSession failure
             request.getSession().invalidate();
-            response.sendRedirect("/EZcloLS/index.html");
+            response.sendRedirect("/EZcloLS/index/login.jsp");
         }
     }
 

@@ -1,59 +1,60 @@
 package FileManager;
 
-import model.DBConnectModel;
-import java.io.PrintWriter;
+import model.AccountStorageModel;
+import org.json.JSONObject;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DBConnectModel;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-@WebServlet(name = "NewFileCheck", urlPatterns = {"/NewFileCheck"})
-public class NewFileCheck extends HttpServlet {
+@WebServlet(name = "AccountInf", urlPatterns = {"/AccountInfController"})
+public class AccountInfController extends HttpServlet {
 
-    ArrayList<String> arr;
+    JSONObject jsonObj;
+    AccountStorageModel accs;
+    HttpSession session;
     DBConnectModel dbcm;
-    String ynrepeatQuery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND F_Name=? ORDER BY F_Number";
+    String selectmember = "SELECT M_Email, M_Gender, M_Born FROM Member WHERE M_Number=?";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        dbcm = new DBConnectModel();
-        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        dbcm = new DBConnectModel();
+        //JSON
+        response.setContentType("application/json");
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            try (Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
-                    PreparedStatement ynrepeat = con.prepareStatement(ynrepeatQuery);) {
-                String newfile = request.getParameter("newfile");
-                if (newfile == "") {
-                    out.write("ERROR");
-                }
-                String renamefile = request.getParameter("renamefile");
-                //若傳入renamefile參數 擇設給newfile 做判斷
-                if (renamefile != null) {
-                    newfile = renamefile;
-                }
-                System.out.println("-------------------------------------");
-                System.out.println("NewFileName     " + newfile);
-                ynrepeat.setString(1, newfile);
-                //查詢結果有相同資料名
-                ResultSet result = ynrepeat.executeQuery();
-                arr = new ArrayList<>();
+            try (
+                    Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
+                    PreparedStatement pstmt = con.prepareStatement(selectmember);) {
+                session = request.getSession();
+                int mnumber = (Integer) session.getAttribute("M_Number");
+                pstmt.setInt(1, mnumber);
+                ResultSet result = pstmt.executeQuery();
+
                 while (result.next()) {
-                    String reString = result.getString("F_Name");
-                    arr.add(reString);
-                }
-                if (arr.contains(newfile)) {
-                    out.write("ERROR");
-                } else {
-                    out.write("SUCCESS");
+                    Map map = new HashMap();
+                    String mEmail = result.getString("M_Email");
+                    String mGender = result.getString("M_Gender");
+                    Date mBorn = result.getDate("M_Born");
+                    
+                    map.put("M_Email", mEmail);
+                    map.put("M_Gender", mGender);
+                    map.put("M_Born", mBorn);
+                    jsonObj = new JSONObject(map);
+                    out.print(jsonObj);
                 }
             }
         } catch (Exception e) {

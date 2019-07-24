@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%
     int i = 0;
-    RequestDispatcher rd = request.getRequestDispatcher("/EZcloLS/OptionModalController");
+    RequestDispatcher rd = request.getRequestDispatcher("/OptionModalController");
     rd.include(request, response);
 
 %>
@@ -80,7 +80,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                 <!-- <button type="button" class="btn btn-primary">登出系統</button> -->
-                <form action="/EZclo/LogOutController" method="POST">
+                <form action="/EZcloLS/LogOutController" method="POST">
                     <input type="submit" value="登出系統" class="btn btn-primary">
                 </form>
             </div>
@@ -107,7 +107,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal">關閉</button>
                 <button type="button" class="btn btn-primary newfile" >建立學習夾</button>
             </div>
         </div>

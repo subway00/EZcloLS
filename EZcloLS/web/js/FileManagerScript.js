@@ -13,7 +13,7 @@ $(function () {
         if (isEmptyObject(newfile)) {
             alert("尚未輸入資料夾名稱請重新輸入");
         } else {
-            $.post("/EZcloLS/NewFileCheck", {newfile: newfile}, function (data) {
+            $.post("/EZcloLS/NewFileCheckController", {newfile: newfile}, function (data) {
                 if (data === "ERROR") {
                     alert("重複資料夾名稱，請重新輸入");
                 } else {
@@ -33,7 +33,7 @@ $(function () {
         thisfilename = $(this).parent().siblings("p").text();
         $(document).on("click", ".renamefile", function () {
             rename = $(this).parent().siblings(".modal-body").find(".rename").val();
-            $.post("/EZcloLS/NewFileCheck", {rename: rename}, function (data) {
+            $.post("/EZcloLS/NewFileCheckController", {rename: rename}, function (data) {
                 $.post("/EZcloLS/RenameFileController", {rename: rename, thisname: thisfilename}, function () {
                     ableFile();
                     OptionFileModal();
@@ -98,7 +98,7 @@ $(function () {
     })
     //Account Inf
     $(document).on("click", ".accountInf", function () {
-        $.post("/EZcloLS/AccountInf", function (jsonObj) {
+        $.post("/EZcloLS/AccountInfController", function (jsonObj) {
             $("#exampleModalLong").find("#accIF_email").val(jsonObj.M_Email);
             $("#exampleModalLong").find("#accIF_gender").val(genderConvert(jsonObj.M_Gender));
             $("#exampleModalLong").find("#accIF_born").val(jsonObj.M_Born);
@@ -158,12 +158,6 @@ function activeElement() {
     rename = $(this).parent().siblings().find("p").val();
     return rename;
 }
-function closeModal(thisfilename) {
-    var nowmodal = "#" + thisfilename;
-    nowmodal = $(nowmodal);
-    return nowmodal;
-}
-
 function newFileSuccess() {
     $("#recipient-name1").val("");
 }
@@ -183,18 +177,20 @@ function judgePW(pw1, pw2) {
     var result;
     if (pw1 !== pw2) {
         result = "密碼輸入錯誤，請重新輸入";
+        $("#accIF_pw1").val("");
+        $("#accIF_pw2").val("");
     }
     return result;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {
-    $(".modal").bind("hide.bs.modal", function () {
+    $(".modal").on("hide.bs.modal", function () {
         $(".modal-backdrop").remove();
     })
 }
 function closeModal() {
     $(".modal").modal('hide');
-   
+    $(document.body).removeClass("modal-open");
 }
 
 

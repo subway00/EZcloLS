@@ -85,7 +85,7 @@
                 </div>
                 <textarea id="h_answer" style="display: none">${Paper.getLetter()}</textarea>
                 <textarea id="h_paper" style="display: none">${Paper.getContent()}</textarea>
-                <iframe id="exam_panel" class="flex-fill test-content" src="PaperExam/ExamPanel.jsp" onload="prepareExam()"></iframe>	
+                <iframe id="exam_panel" class="flex-fill test-content" src="ExamPanel.jsp" onload="prepareExam()"></iframe>	
             </div>
 
             <div class="fixed-bottom d-flex justify-content-end mb-3 mr-5">
