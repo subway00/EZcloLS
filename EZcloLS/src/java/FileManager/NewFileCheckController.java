@@ -22,7 +22,7 @@ public class NewFileCheckController extends HttpServlet {
     HttpSession session;
     ArrayList<String> arr;
     DBConnectModel dbcm;
-    String ynrepeatQuery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND F_Name=? ORDER BY F_Number";
+    String ynrepeatQuery = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND M_Number=? ORDER BY F_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,8 +34,8 @@ public class NewFileCheckController extends HttpServlet {
             try (Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement ynrepeat = con.prepareStatement(ynrepeatQuery);) {
                 String newfile = request.getParameter("newfile");
-                String email =(String)session.getAttribute("email");
-                System.out.println("email為:    " + email);
+                session = request.getSession();
+                int mnumber =(Integer)session.getAttribute("M_Number");
                 if (newfile == "") {
                     out.write("ERROR");
                 }
@@ -44,9 +44,7 @@ public class NewFileCheckController extends HttpServlet {
                 if (renamefile != null) {
                     newfile = renamefile;
                 }
-                System.out.println("-------------------------------------");
-                System.out.println("NewFileName     " + newfile);
-                ynrepeat.setString(1, newfile);
+                ynrepeat.setInt(1, mnumber);
                 //查詢結果有相同資料名
                 ResultSet result = ynrepeat.executeQuery();
                 arr = new ArrayList<>();

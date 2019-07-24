@@ -107,7 +107,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal">關閉</button>
                 <button type="button" class="btn btn-primary newfile" >建立學習夾</button>
             </div>
         </div>

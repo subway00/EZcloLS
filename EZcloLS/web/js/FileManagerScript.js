@@ -33,7 +33,7 @@ $(function () {
         thisfilename = $(this).parent().siblings("p").text();
         $(document).on("click", ".renamefile", function () {
             rename = $(this).parent().siblings(".modal-body").find(".rename").val();
-            $.post("/EZcloLS/NewFileCheck", {rename: rename}, function (data) {
+            $.post("/EZcloLS/NewFileCheckController", {rename: rename}, function (data) {
                 $.post("/EZcloLS/RenameFileController", {rename: rename, thisname: thisfilename}, function () {
                     ableFile();
                     OptionFileModal();
@@ -158,12 +158,6 @@ function activeElement() {
     rename = $(this).parent().siblings().find("p").val();
     return rename;
 }
-function closeModal(thisfilename) {
-    var nowmodal = "#" + thisfilename;
-    nowmodal = $(nowmodal);
-    return nowmodal;
-}
-
 function newFileSuccess() {
     $("#recipient-name1").val("");
 }
@@ -188,15 +182,15 @@ function judgePW(pw1, pw2) {
     }
     return result;
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {
-    $(".modal").bind("hide.bs.modal", function () {
+    $(".modal").on("hide.bs.modal", function () {
         $(".modal-backdrop").remove();
     })
 }
 function closeModal() {
     $(".modal").modal('hide');
-
+    $(document.body).removeClass("modal-open");
 }
 
 

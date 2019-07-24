@@ -74,14 +74,8 @@ public class OptionModalController extends HttpServlet {
                 if (i == 0) {
                     int choosefile = (Integer) session.getAttribute("choosefile");
                     pstmt2.setInt(1, choosefile);
-                    System.out.println("---------------");
-                    System.out.println("拿到session" + choosefile);
-
                 } else {
                     pstmt2.setInt(1, i);
-                    System.out.println("---------------");
-                    System.out.println("沒拿到session");
-
                 }
 
                 ResultSet result3 = pstmt2.executeQuery();
