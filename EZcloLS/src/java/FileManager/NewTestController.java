@@ -33,7 +33,6 @@ public class NewTestController extends HttpServlet {
             + "ON T.T_Number = R.T_Number\n"
             + "WHERE F.F_Number=? AND T_Able=1\n"
             + "ORDER BY T_Number";
-            
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -1,5 +1,6 @@
 package FileManager;
 
+import model.TestModel;
 import model.IndexProducerModel;
 import model.DBConnectModel;
 import java.io.IOException;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.TestModel;
 
 @WebServlet(name = "AbleTestController", urlPatterns = {"/AbleTestController"})
 public class AbleTestController extends HttpServlet {
@@ -33,7 +33,6 @@ public class AbleTestController extends HttpServlet {
             + "ON T.T_Number = R.T_Number\n"
             + "WHERE F.F_Number=? AND T_Able=1\n"
             + "ORDER BY T_Number";
-            
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,7 +44,6 @@ public class AbleTestController extends HttpServlet {
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(searchfile);
                     PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
-
                 String selectfile = request.getParameter("clickfile");
                 pstmt.setString(1, selectfile);
                 ResultSet result = pstmt.executeQuery();
@@ -77,6 +75,16 @@ public class AbleTestController extends HttpServlet {
             e.printStackTrace();
         }
 
+    }
+
+    private void sessionGetSet(HttpServletRequest request) {
+        int F_Number = 0;
+        F_Number = (Integer) request.getSession().getAttribute("choosefile");
+        if (F_Number == 0) {
+            System.out.println("No session");
+        } else {
+            System.out.println("Y session");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

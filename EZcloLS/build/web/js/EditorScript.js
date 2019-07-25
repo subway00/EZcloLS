@@ -3,7 +3,7 @@
 function cunstructNewPaper(t_num) {
     var fd =
             "T_Number=" + t_num;
-    window.open('/EZcloLS/ConstructPaperServlet?' + fd);
+    window.open('..ConstructPaperServlet?' + fd);
 }
 
 function prepareExam(t_num) {

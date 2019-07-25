@@ -68,6 +68,7 @@ $(function () {
             event.p
         });
     });
+    //click delete test
     $(document).on("click", ".deletetest", function () {
         var testnumber = $(this).siblings("input").val();
         $.post("/EZcloLS/FileManager/DeleteTestView.jsp", {testnumber: testnumber}, function (data) {
