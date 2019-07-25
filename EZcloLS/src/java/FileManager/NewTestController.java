@@ -1,8 +1,8 @@
 package FileManager;
 
+import model.TestModel;
 import model.DBConnectModel;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
@@ -10,20 +10,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "NewTestController", urlPatterns = {"/NewTestController"})
 public class NewTestController extends HttpServlet {
 
-    ArrayList<String> arr;
+    TestModel tm;
+    ArrayList<TestModel> arr;
     DBConnectModel dbcm;
+    RequestDispatcher rd;
     String query = "INSERT INTO Test (T_Name, T_Able, F_Number) VALUES ( ?, 1, ?)";
-    String searchquery = "SELECT T_Name FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
+//    String searchquery = "SELECT T_Name, T_Number, T_BuildTime FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
+    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime \n"
+            + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
+            + "ON F.F_Number = T.F_Number\n"
+            + "LEFT JOIN Result AS R\n"
+            + "ON T.T_Number = R.T_Number\n"
+            + "WHERE F.F_Number=? AND T_Able=1\n"
+            + "ORDER BY T_Number";
+            
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,29 +44,34 @@ public class NewTestController extends HttpServlet {
             try (
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);
-                    PreparedStatement pstmt2 = con.prepareStatement(searchquery);) {
+                    PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
                 String newtest = request.getParameter("newtest");
                 Integer choosefile = (Integer) session.getAttribute("choosefile");
                 //new test
                 pstmt.setString(1, newtest);
                 pstmt.setInt(2, choosefile);
                 pstmt.executeUpdate();
-                //get test
+                //get T_Name & T_Number & T_BuildTime
                 pstmt2.setInt(1, choosefile);
                 ResultSet result = pstmt2.executeQuery();
                 arr = new ArrayList<>();
-                while(result.next()) {
+                while (result.next()) {
                     String tname = result.getString("T_Name");
-                    arr.add(tname);
+                    int tnumber = result.getInt("T_Number");
+                    Date tbuildtime = result.getDate("T_BuildTime");
+                    Date rtesttime = result.getDate("R_TestTime");
+                    arr.add(new TestModel(tnumber, tname, tbuildtime, rtesttime));
                 }
+                //RequestDispatcher
                 request.setAttribute("ableTest", arr);
+                rd = request.getRequestDispatcher("/FileManager/AbleTest.jsp");
+                rd.forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

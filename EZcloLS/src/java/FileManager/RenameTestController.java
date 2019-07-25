@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "RenameTestController", urlPatterns = {"/RenameTestController"})
 public class RenameTestController extends HttpServlet {
+
     ArrayList<String> arr;
     String searchquery = "SELECT T_Name FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
     String query = "UPDATE Test SET T_Name=? WHERE T_Number=? AND T_Able='1'";
@@ -31,8 +32,8 @@ public class RenameTestController extends HttpServlet {
             try (
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);
-                    PreparedStatement pstmt2 = con.prepareCall(searchquery) ) {
-                
+                    PreparedStatement pstmt2 = con.prepareCall(searchquery)) {
+
                 String rename = request.getParameter("rename");
                 String thistestnum = request.getParameter("testnumber");
                 int tnumber = Integer.parseInt(thistestnum);
@@ -40,7 +41,7 @@ public class RenameTestController extends HttpServlet {
                 pstmt.setInt(2, tnumber);
                 pstmt.executeUpdate();
                 //display test
-                Integer choosefile = (Integer)session.getAttribute("choosefile");
+                Integer choosefile = (Integer) session.getAttribute("choosefile");
                 pstmt2.setInt(1, choosefile);
                 ResultSet result = pstmt2.executeQuery();
                 arr = new ArrayList<>();

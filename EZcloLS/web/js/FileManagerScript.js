@@ -12,10 +12,12 @@ $(function () {
         newfile = $("#recipient-name1").val();
         if (isEmptyObject(newfile)) {
             alert("尚未輸入資料夾名稱請重新輸入");
+            $("#recipient-name1").val("");
         } else {
             $.post("/EZcloLS/NewFileCheckController", {newfile: newfile}, function (data) {
                 if (data === "ERROR") {
                     alert("重複資料夾名稱，請重新輸入");
+                    $("#recipient-name1").val("");
                 } else {
                     $.post("/EZcloLS/FileManager/NewFileView.jsp", {newfile: newfile}, function (data) {
                         $(".file-card-area").html(data);
@@ -58,11 +60,12 @@ $(function () {
     //click new test
     $(document).on("click", ".newtest", function () {
         var newtest = $("#recipient-name2").val();
-        $.post("/EZcloLS/FileManager/NewTestView.jsp", {newtest: newtest}, function (data) {
+        $.post("/EZcloLS/NewTestController", {newtest: newtest}, function (data) {
             $("tbody").html(data);
             OptionFileModal();
             bindModal();
             closeModal();
+            event.p
         });
     });
     $(document).on("click", ".deletetest", function () {

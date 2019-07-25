@@ -1,7 +1,7 @@
 package FileManager;
 
 import model.IndexProducerModel;
-import model.TestNumNameModel;
+import model.TestModel;
 import model.DBConnectModel;
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class OptionModalController extends HttpServlet {
 
     HttpSession session;
-    ArrayList<TestNumNameModel> arr2;
+    ArrayList<TestModel> arr2;
     IndexProducerModel index;
     ArrayList<String> arr;
     DBConnectModel dbcm;
@@ -83,7 +83,7 @@ public class OptionModalController extends HttpServlet {
                 while (result3.next()) {
                     int testnumber = result3.getInt("T_Number");
                     String abletest = result3.getString("T_Name");
-                    arr2.add(new TestNumNameModel(testnumber, abletest));
+                    arr2.add(new TestModel(testnumber, abletest));
                 }
 
                 request.setAttribute("abletest", arr2);

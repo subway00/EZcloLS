@@ -9,22 +9,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.TestModel;
 
 @WebServlet(name = "AbleTestController", urlPatterns = {"/AbleTestController"})
 public class AbleTestController extends HttpServlet {
 
     HttpSession session;
     IndexProducerModel index;
-    ArrayList<String> arr;
+    ArrayList<TestModel> arr;
     DBConnectModel dbcm;
     String searchfile = "SELECT F_Number FROM FileFolder WHERE F_Able=1 AND F_Name=?";
-    String searchquery = "SELECT T_Name FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
+    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime \n"
+            + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
+            + "ON F.F_Number = T.F_Number\n"
+            + "LEFT JOIN Result AS R\n"
+            + "ON T.T_Number = R.T_Number\n"
+            + "WHERE F.F_Number=? AND T_Able=1\n"
+            + "ORDER BY T_Number";
+            
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,8 +44,8 @@ public class AbleTestController extends HttpServlet {
             try (
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(searchfile);
-                    PreparedStatement pstmt2 = con.prepareStatement(searchquery)) {
-                
+                    PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
+
                 String selectfile = request.getParameter("clickfile");
                 pstmt.setString(1, selectfile);
                 ResultSet result = pstmt.executeQuery();
@@ -47,13 +56,19 @@ public class AbleTestController extends HttpServlet {
                 }
                 //set session
                 session.setAttribute("choosefile", filenumber);
+                arr = new ArrayList<>();
+                //get T_Name & T_Number & T_BuildTime & R_TestTime
                 pstmt2.setInt(1, filenumber);
                 ResultSet result2 = pstmt2.executeQuery();
-                arr = new ArrayList<>();
                 while (result2.next()) {
-                    String ablefile = result2.getString("T_Name");
-                    arr.add(ablefile);
+                    int tnumber = result2.getInt("T_Number");
+                    String tname = result2.getString("T_Name");
+                    Date tbuildtime = result2.getDate("T_BuildTime");
+                    Date rtesttime = result2.getDate("R_TestTime");
+                    arr.add(new TestModel(tnumber, tname, tbuildtime, rtesttime));
                 }
+                //get 
+
                 index = new IndexProducerModel();
                 request.setAttribute("ableTest", arr);
                 request.setAttribute("IndexProducer", index);

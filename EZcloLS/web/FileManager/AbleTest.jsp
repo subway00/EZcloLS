@@ -11,15 +11,16 @@
 <c:forEach var="testname" items="${ableTest}">
     <tr>
         <td><div class="minus" data-toggle="modal" data-target="#deleteTest<%=k+=1%>"> <b>[</b></div></td>
-        <td><div class="testname">${testname}</div></td>
-        <td>2019-06-30</td>
-        <td>2019-06-30</td>
+        <td><div class="testname">${testname.tname}</div></td>
+        <td>${testname.tbuildtime}</td>
+        <td>${testname.rtesttime}</td>
         <td><div class="operate-button-box">
-                <a href="../PaperEditor/PaperEditor.jsp"><button type="button" class="btn btn-outline-success">編輯</button></a> 		  		
+                <button type="button" class="btn btn-outline-success" onclick="cunstructNewPaper(${testname.tnumber})">編輯</button> 		  		
                 <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#renameTest<%=l+=1%>">命名</button>
-                <a href="../PaperExam/PaperExam.jsp"><button type="button" class="btn btn-outline-success">測驗</button></a>	  
+                <button type="button" class="btn btn-outline-success" onclick="prepareExam(${testname.tnumber})">測驗</button>	  
             </div>
         </td>	
     </tr>
 
 </c:forEach >
+<script src="/EZcloLS/js/EditorScript.js"></script>

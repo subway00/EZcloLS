@@ -1,22 +1,42 @@
 package model;
 
+import java.util.Date;
+
 public class TestModel {
-    private String T_Name;
-    private String T_BuildTime;
+
+    private String tname;
+    private int tnumber;
+    private Date tbuildtime;
+    private Date rtesttime;
+
     public TestModel() {
-        
+
     }
-    public TestModel(String T_Name, String T_BuildTime) {
-        this.T_Name = T_Name;
-        this.T_BuildTime = T_BuildTime;
+    public TestModel(int tnumber, String tname) {
+        this.tnumber = tnumber;
+        this.tname = tname;
     }
 
-    public String getT_Name() {
-        return T_Name;
+    public TestModel(int tnumber, String tname, Date tbuildtime, Date rtesttime) {
+        this.tnumber = tnumber;
+        this.tname = tname;
+        this.tbuildtime = tbuildtime;
+        this.rtesttime = rtesttime;
     }
 
-    public String getT_BuildTime() {
-        return T_BuildTime;
+    public int getTnumber() {
+        return tnumber;
+    }
+
+    public String getTname() {
+        return tname;
+    }
+
+    public Date getTbuildtime() {
+        return tbuildtime;
+    }
+    public Date getRtesttime() {
+        return rtesttime;
     }
     
 }
