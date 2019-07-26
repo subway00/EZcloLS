@@ -74,7 +74,8 @@ public class RecoverAccServlet extends HttpServlet {
             if (updateInfo(con, stmt, user)) {
                 EmailModel em = new EmailModel();
                 em.setSubject("密碼重置");
-                em.setContext("new password: "+pwdGenerator(10,3));
+                em.setTo(email);
+                em.setContext("new password: "+new_pwd);
                 utils.sendEmail(em);
                 utils.setWarning(out, "Reset success!", "/EZcloLS/index/login.jsp");
             } else {

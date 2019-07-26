@@ -58,7 +58,7 @@ public class utils {
         return "";
     }
     
-    public static void sendEmail(EmailModel em) {
+   public static void sendEmail(EmailModel em) {
 
         String host = "smtp.gmail.com";
         int port = 587;
@@ -70,7 +70,6 @@ public class utils {
         props.put("mail.smtp.port", port);
         
         Session session = em.getSession(props);
-
         try {
 
             Message message = new MimeMessage(session);
@@ -80,6 +79,7 @@ public class utils {
             message.setSubject("信箱驗證");
             message.setContent(em.getContext(),"text/html;charset=utf-8");
             Transport transport = em.getTransport(session);
+            
             Transport.send(message);
 
             System.out.println("寄送email結束.");
