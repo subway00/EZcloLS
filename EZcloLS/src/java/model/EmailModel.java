@@ -14,8 +14,8 @@ import javax.mail.Transport;
 import javax.servlet.http.HttpSession;
 
 public class EmailModel {
-    private String email="";
-    private String pwd = "";
+    private String email="pig945513@gmail.com";
+    private String pwd = "fufu18187788";
     
     private String from=email;
     private String to="";

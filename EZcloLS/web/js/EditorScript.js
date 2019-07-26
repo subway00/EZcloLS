@@ -1,21 +1,17 @@
 // JavaScript Document
 
 $(document).ready(function () {
-    $("#text-cloze-bar").on('click', show);
-
-    function show(event) {
-        $("#cloze_toolbar").animate({left: '-152px'});
-        event.preventDefault();
-        $("#text-cloze-bar").off('click');
-        $("#text-cloze-bar").on('click', hide);
-    }
-
-    function hide(event) {
+    var action = "mouseover";
+    $("#text-cloze-bar").on('mouseenter', "#cloze_toolbar", function show(event) {
         $("#cloze_toolbar").animate({left: '0px'});
-        event.preventDefault();
-        $("#text-cloze-bar").off('click');
-        $("#text-cloze-bar").on('click', show);
-    }
+    });
+    
+    $("#text-cloze-bar").on('mouseleave', "#cloze_toolbar",     function hide(event) {
+        $("#cloze_toolbar").animate({left: '-137px'});
+    });
+
+
+
 });
 
 
@@ -155,6 +151,12 @@ function btnState(btn, count) {
     } else {
         btn.setAttribute("class", "text-white bg-secondary col-4 col-xs-2 col-sm-2 col-md-6 list-group-item list-group-item-action disabled");
     }
+}
+
+function setframe_size() {
+    var selector = document.getElementById("frame_size_selector");
+    var value = selector.options[selector.selectedIndex].value;
+    getfocus().body.setAttribute("style", "zoom:" + value);
 }
 
 function getSelectionNodes(select) {

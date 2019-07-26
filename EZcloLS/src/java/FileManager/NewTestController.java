@@ -51,7 +51,7 @@ public class NewTestController extends HttpServlet {
                 pstmt.setString(1, newtest);
                 pstmt.setInt(2, choosefile);
                 pstmt.executeUpdate();
-                //get T_Name & T_Number & T_BuildTime
+                //get T_Name & T_Number & T_BuildTime & R_TestTime
                 pstmt2.setInt(1, choosefile);
                 ResultSet result = pstmt2.executeQuery();
                 arr = new ArrayList<>();

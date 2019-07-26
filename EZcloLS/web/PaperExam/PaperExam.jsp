@@ -8,20 +8,20 @@
         <meta charset="utf-8">
         <title>Ezclo Testing</title>
         <link href="/EZcloLS/css/ExamStyle.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /dAiS6Jintegrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAWXm" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     </head>
 
     <body>
         <div class="container-fluid">
             <div class="header row align-items-end">
-                <div class="logo col-12 col-md-8 d-flex align-items-end">
+                <div class="logo col-6 col-md-8 d-flex align-items-end">
                     <h1><a href="#"><img src="/EZcloLS/img/logo-f.svg" alt=""/></a></h1>
                     <p>&nbsp;&nbsp;&nbsp;</p>
-                    <b>Memorize Vacabulary By Cloze</b>
+                    <b  class="d-none d-md-block">Memorize Vacabulary By Cloze</b>
                 </div>
 
-                <div class="account-box col-12 col-md-4 ">
+                <div class="account-box col-6 col-md-4 ">
                     <div class="dropdown d-flex justify-content-end">
                         <button class="account-botton btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                             <span>一般會員 howard</span> 

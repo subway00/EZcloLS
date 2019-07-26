@@ -66,7 +66,6 @@ $(function () {
             OptionFileModal();
             bindModal();
             closeModal();
-            event.p
         });
     });
     //click delete test

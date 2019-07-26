@@ -47,7 +47,7 @@ public class AbleTestController extends HttpServlet {
 
                 //get sesssion
                 // int F_Number = 0;
-//                F_Number = (Integer) request.getSession().getAttribute("choosefile");
+//               
 //                sessionGetSet(F_Number);
                 String selectfile = request.getParameter("clickfile");
                 pstmt.setString(1, selectfile);
@@ -82,11 +82,12 @@ public class AbleTestController extends HttpServlet {
 
     }
 
-    private void sessionGetSet(int F_Number) {
+    private void sessionGetSet(int F_Number, HttpSession session) {
         if (F_Number == 0) {
             System.out.println("No session");
         } else {
             System.out.println("Y session");
+             F_Number = (Integer) session.getAttribute("choosefile");
         }
     }
 

@@ -63,14 +63,14 @@
 
         <div class="container-fluid">        
             <div class="header row align-items-end">
-                <div class="logo col-12 col-md-8 d-flex align-items-end">
+                <div class="logo col-6 col-md-8 d-flex align-items-end">
                     <h1><a href="#"><img src="/EZcloLS/img/logo-f.svg" alt=""/></a></h1>
                     <p>&nbsp;&nbsp;&nbsp;</p>
-                    <b>Memorize Vacabulary By Cloze</b> 
+                    <b class="d-none d-md-block">Memorize Vacabulary By Cloze</b> 
                 </div>
 
-                <div class="account-box col-12 col-md-4 ">
-                    <div class="dropdown d-flex justify-content-end">
+                <div class="account-box col-6 col-md-4 ">
+                    <div class="dropdown d-flex justify-content-end ">
                         <button class="account-botton btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                             <span>一般會員 howard</span> 
                         </button>
@@ -120,9 +120,9 @@
                 <div class="article">以下請貼上想要製作克漏字的文章</div>
             </div>
             <div class="row">
-                <div id="cloze_toolbar" class="make-cloze-bar">
+                <div id="cloze_toolbar" class="make-cloze-bar drop-shadow">
                     <div class="d-inline-flex">
-                        <div>
+                        <div class="make-cloze-panel">
                             <div class="make-clo-btn" onClick="cloze()"> 
                                 <img src="/EZcloLS/img/excavator.svg" alt=""/>
                                 <p>製作填空</p>
@@ -135,8 +135,22 @@
                                 <img src="/EZcloLS/img/manual.svg" alt=""/>
                                 <p>使用說明</p>
                             </div>
+
+                            <div class="d-inline-flex w-100 m-2">
+                                縮放:
+                                <select id="frame_size_selector" onchange="setframe_size()">
+                                    <option value="0.5">50%</option>
+                                    <option value="0.75">75%</option>
+                                    <option value="1" selected >100%</option>
+                                    <option value="1.25">125%</option>
+                                    <option value="1.5">150%</option>
+                                    <option value="2">200%</option>
+                                </select>
+                            </div>
+
+
                         </div>
-                        <div id="text-cloze-bar" class="toggle"></div>
+                        <span id="text-cloze-bar" class="toggle">克漏字作業區</span>
                     </div>
 
                 </div>

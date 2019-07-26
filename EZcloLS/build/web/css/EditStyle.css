@@ -105,21 +105,26 @@ html,body {
     min-height: 590px
 }
 
-#text-cloze-bar {
-    margin: 10px 0 20px 20px;
+.drop-shadow {
+    -webkit-filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.7));
+    filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.7));
+}
 
+.box-shadow {
+    box-shadow: 12px 12px 7px rgba(0, 0, 0, 0.7);
 }
 
 .make-cloze-bar {
-    color:white;
-    border: #8C8C8C solid;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: #3D3D3D50;
-    position: fixed;
+    color:white;
+    position: absolute;
     z-index: 100px;
-    left: 0;
-    top:30vh;
+    left: -137px;
+}
+
+.make-cloze-panel{
+    background-color: #3D3D3D50;
 }
 
 .make-clo-btn {
@@ -147,10 +152,17 @@ html,body {
 
 .toggle
 {
-    border: #D3D3D3 solid;
-    border-radius: 10px;
-    width:20px;
-    background-color: #D3D3D3;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color:#6D6D6D;
+    webkit-transition: background .2s linear;
+    transition: background .2s linear;writing-mode: vertical-rl;
+    text-orientation: upright;
+    text-align: center;
+}
+
+.toggle:hover{
+    background-color: #00B4AA;
 }
 
 .cloze-article {
