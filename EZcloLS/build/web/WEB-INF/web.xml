@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <servlet>
+     <servlet>
         <servlet-name>SavePaperServlet</servlet-name>
         <servlet-class>Member.SavePaperServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PrepareExamServlet</servlet-name>
         <servlet-class>Member.PrepareExamServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ConstructPaperServlet</servlet-name>
-        <servlet-class>Member.ConstructPaperServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FileRetrieverServlet</servlet-name>
@@ -44,6 +40,18 @@
         <servlet-name>CheckAnswerServlet</servlet-name>
         <servlet-class>Member.CheckAnswerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConstructExam</servlet-name>
+        <servlet-class>Member.ConstructExam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PreparePaperServlet</servlet-name>
+        <servlet-class>Member.PreparePaperServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConstructPaper</servlet-name>
+        <servlet-class>Member.ConstructPaper</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SavePaperServlet</servlet-name>
         <url-pattern>/SavePaperServlet</url-pattern>
@@ -51,10 +59,6 @@
     <servlet-mapping>
         <servlet-name>PrepareExamServlet</servlet-name>
         <url-pattern>/PrepareExamServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ConstructPaperServlet</servlet-name>
-        <url-pattern>/ConstructPaperServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FileRetrieverServlet</servlet-name>
@@ -87,6 +91,18 @@
     <servlet-mapping>
         <servlet-name>CheckAnswerServlet</servlet-name>
         <url-pattern>/CheckAnswerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConstructExam</servlet-name>
+        <url-pattern>/ConstructExam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PreparePaperServlet</servlet-name>
+        <url-pattern>/PreparePaperServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConstructPaper</servlet-name>
+        <url-pattern>/ConstructPaper</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -30,19 +30,19 @@
                     <br>   
 
                     <label><i class="fa fa-file"></i></label>    
-                    <input type="text" readonly="value" value="已測驗試卷:2">
+                    <input type="text" readonly="value" id="accIF_finishTest">
                     <br>
 
                     <label><i class="fa fa-list-ol" aria-hidden="true"></i></label>
-                    <input type="text" readonly="value" value="總答題數:18">
+                    <input type="text" readonly="value" id="accIF_totalQuestions">
                     <br> 
 
                     <label><i class="fa fa-check-square" aria-hidden="true"></i></label>
-                    <input type="text" readonly="value" value="答對題數:12">
+                    <input type="text" readonly="value" id="accIF_rightCount">
                     <br>  
 
                     <label><i class="fa fa-bullseye" aria-hidden="true"></i></label>	  
-                    <input type="text" readonly="value" value="命中率:67%">
+                    <input type="text" readonly="value" id="accIF_rightRate">
                     <br> <br>
 
                     <div class="change-password-box">	  

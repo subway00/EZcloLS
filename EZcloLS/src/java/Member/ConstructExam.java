@@ -1,19 +1,15 @@
-package Member;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Member;
+
 import Controller.DBController;
-import model.DBConnectModel;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -28,29 +24,37 @@ import model.RecordModel;
  *
  * @author User
  */
-public class PrepareExamServlet extends HttpServlet {
+public class ConstructExam extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
 
         //get parameters
         String T_Number = request.getParameter("T_Number");
-        String user_email = request.getSession().getAttribute("email").toString();
 
         //set attributes
         request.setAttribute("Paper", getPaperContext(T_Number));
-        request.setAttribute("Email", user_email);
+
         //launch web
-        RequestDispatcher rd = request.getRequestDispatcher("/PaperExam/PaperExam.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/PaperExam/ExamPanel.jsp");
         rd.forward(request, response);
-
     }
-
+    
     private PaperModel getPaperContext(String T_Number) {
         DBController dbc = new DBController();
         ResultSet rs = dbc.select("EZclo.dbo.Test",
-                new String[]{"T_Name", "T_Content", "T_Letter"},
+                new String[]{"T_Name", "T_Content","T_Letter"},
                 "T_Number = " + T_Number);
 
         PaperModel paper = new PaperModel();

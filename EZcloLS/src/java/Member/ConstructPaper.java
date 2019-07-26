@@ -1,11 +1,11 @@
-package Member;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import model.DBConnectModel;
+package Member;
+
+import Controller.DBController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,31 +19,35 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.DBConnectModel;
 import model.PaperModel;
 
 /**
  *
  * @author User
  */
-public class ConstructPaperServlet extends HttpServlet {
+public class ConstructPaper extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        DBConnectModel dbc = new DBConnectModel();
+
         String T_Number = request.getParameter("T_Number");
 
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection conn = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
-            Statement stmt = conn.createStatement();
+            DBController dbc = new DBController();
+            ResultSet rs = dbc.select("EZclo.dbo.Test", new String[]{"T_Name","T_Content","T_Letter"},"T_Number = " + T_Number );
 
-            String query = "select T_Name,T_Content,T_Letter from EZclo.dbo.Test "
-                    + "where "
-                    + "T_Number = " + T_Number;
-
-            ResultSet rs = stmt.executeQuery(query);
             PaperModel paper = new PaperModel("", "", "", null, -1, -1);
 
             if (rs != null && rs.next()) {
@@ -53,21 +57,20 @@ public class ConstructPaperServlet extends HttpServlet {
                 paper.setT_number(Integer.parseInt(T_Number));
             }
             
-            stmt.close();
-            conn.close();
+            dbc.closeDB();
             
             request.setAttribute("Paper", paper);
 
             System.out.println(rs);
-            RequestDispatcher rd = request.getRequestDispatcher("/PaperEditor/PaperEditor.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/PaperEditor/EdPanel.jsp");
             rd.forward(request, response);
 
         } catch (Exception ex) {
             Logger.getLogger(SavePaperServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

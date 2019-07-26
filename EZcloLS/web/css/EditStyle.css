@@ -7,7 +7,9 @@
     padding: 0px;
 } 
 
-body { }
+html,body {
+    height:100%
+}
 
 .container-fluid {
     font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
@@ -73,6 +75,8 @@ body { }
 .toolbar-btn button{
     background-color:#6D6D6D;
     color:#FFFFFF;
+    webkit-transition: background .2s linear;
+    transition: background .2s linear;
 }
 
 .toolbar-btn button:hover{
@@ -82,11 +86,12 @@ body { }
 .save-btn button {
     background-color:#00B4AA;
     color:#FFFFFF;
+    webkit-transition: background .2s linear;
+    transition: background .2s linear;
 }
 
 .save-btn button:hover {
     background-color: #FF0096;
-
 }
 
 .article {
@@ -106,17 +111,27 @@ body { }
 }
 
 .make-cloze-bar {
+    color:white;
     border: #8C8C8C solid;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #3D3D3D50;
+    position: fixed;
+    z-index: 100px;
+    left: 0;
+    top:30vh;
 }
 
 .make-clo-btn {
     width:117px;
     height:117px;
+    margin:10px;
     border: #FF0096 solid;
     text-align: center;
-    margin: 0 15px 20px 20px;
     border-radius: 50%;
-    background-color: #000000;
+    background-color: #000000FF;
+    webkit-transition: background .2s linear;
+    transition: background .2s linear;
 }
 
 .make-clo-btn img {
@@ -128,6 +143,14 @@ body { }
     color:#000000;
     background-color:#FFFFFF;
     border: #FF0096 solid;
+}
+
+.toggle
+{
+    border: #D3D3D3 solid;
+    border-radius: 10px;
+    width:20px;
+    background-color: #D3D3D3;
 }
 
 .cloze-article {
@@ -142,8 +165,6 @@ body { }
 .footertext {
 
 }
-
-
 
 #content input{
     height: 25px;
@@ -163,17 +184,30 @@ body { }
     word-break: break-all;
 }
 
-@font-face {
+.readme-panel img{
+    width:100%
+}
 
+.readme-exp-panel img{
+    width:50px;
+}
+
+.readme-exp-panel p{
+    margin-left: 50px;
+}
+
+.hint{
+    z-index: 100;
+    position: absolute;
+    top: 0px
+}
+
+@font-face {
     font-family: sosa;
     src:url(/EZcloLS/Font/sosa-regular-webfont.ttf);
-
-
 }
 
 @font-face{
     font-family: Entypo;
     src:url(/EZcloLS/Font/Entypo-webfont.ttf)	;
-
-
 }

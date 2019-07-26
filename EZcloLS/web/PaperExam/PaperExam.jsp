@@ -49,7 +49,7 @@
                     </fieldset>
 
                     <fieldset disabled class="col-12 col-md-6 ">
-                        <input type="text" id="disabledTextInput4"  placeholder="應考人員:howard5566@gmail.com">	
+                        <input type="text" id="disabledTextInput4"  placeholder="應考人員:${Email}">	
                     </fieldset>
                 </div>
 
@@ -83,9 +83,7 @@
                 <div class="test-content-title">
                     試卷內容
                 </div>
-                <textarea id="h_answer" style="display: none">${Paper.getLetter()}</textarea>
-                <textarea id="h_paper" style="display: none">${Paper.getContent()}</textarea>
-                <iframe id="exam_panel" class="flex-fill test-content" src="ExamPanel.jsp" onload="prepareExam()"></iframe>	
+                <iframe id="exam_panel" class="flex-fill test-content" src="/EZcloLS/ConstructExam?T_Number=${Paper.getT_number()}" ></iframe>	
             </div>
 
             <div class="fixed-bottom d-flex justify-content-end mb-3 mr-5">

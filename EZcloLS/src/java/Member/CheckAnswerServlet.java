@@ -75,7 +75,7 @@ public class CheckAnswerServlet extends HttpServlet {
                 t_right += rs.getInt("R_Right");
                 t_blk += rs.getInt("R_Right") + rs.getInt("R_Wrong");
             }
-            
+            rate = t_right*100f/t_blk;
             
         } catch (SQLException ex) {
             Logger.getLogger(CheckAnswerServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +83,7 @@ public class CheckAnswerServlet extends HttpServlet {
 
         jo.append("P_Count", p_count);
         jo.append("Score", right+"/"+blk);
-        jo.append("T_Rate", t_right/t_blk*100);
+        jo.append("T_Rate", String.format("%.2f", rate));
         jo.append("T_Right", t_right);
         jo.append("T_Block", t_blk);
         jo.append("Result", result);

@@ -16,14 +16,17 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <link href="/EZcloLS/css/ExamStyle.css" rel="stylesheet" type="text/css">
         <link href="/EZcloLS/css/A4_paper.css" rel="stylesheet" type="text/css">
+        <script src="/EZcloLS/js/EScript.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="prepareExam()">
         <div class="page">
             <div id="exam_panel" class="hiddentxt">
                 <div class="subpage">
-                    <div id="answer" class="answer test-content">                              
+                    <div id="answer" class="answer test-content">      
+                        ${Paper.getLetter()}                        
                     </div>
                     <div id="content" class="content test-content">
+                        ${Paper.getContent()}
                     </div>
                 </div>
             </div>

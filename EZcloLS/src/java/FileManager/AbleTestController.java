@@ -44,6 +44,12 @@ public class AbleTestController extends HttpServlet {
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(searchfile);
                     PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
+                
+                //get sesssion
+                int F_Number = 0;
+                F_Number = (Integer) request.getSession().getAttribute("choosefile");
+                sessionGetSet(F_Number);
+                
                 String selectfile = request.getParameter("clickfile");
                 pstmt.setString(1, selectfile);
                 ResultSet result = pstmt.executeQuery();
@@ -77,9 +83,7 @@ public class AbleTestController extends HttpServlet {
 
     }
 
-    private void sessionGetSet(HttpServletRequest request) {
-        int F_Number = 0;
-        F_Number = (Integer) request.getSession().getAttribute("choosefile");
+    private void sessionGetSet(int F_Number) {
         if (F_Number == 0) {
             System.out.println("No session");
         } else {

@@ -1,6 +1,7 @@
 var thisfilename;
 var renamefile;
 var deletefilename;
+var pw1
 var pw2;
 $(function () {
     //get all file & modal when first enter this page.
@@ -106,16 +107,25 @@ $(function () {
             $("#exampleModalLong").find("#accIF_email").val(jsonObj.M_Email);
             $("#exampleModalLong").find("#accIF_gender").val(genderConvert(jsonObj.M_Gender));
             $("#exampleModalLong").find("#accIF_born").val(jsonObj.M_Born);
+            $("#exampleModalLong").find("#accIF_finishTest").val("已測驗試卷: " + jsonObj.FinishTest);
+            $("#exampleModalLong").find("#accIF_totalQuestions").val("總答題數: " + jsonObj.TotalQuestions);
+            $("#exampleModalLong").find("#accIF_rightCount").val("答對題數: " + jsonObj.RightCount);
+            $("#exampleModalLong").find("#accIF_rightRate").val("命中率: " + jsonObj.RightRate + "%");
         });
     });
     //帳號資訊:判斷兩次密碼是否相同
     $(document).on("blur", "#accIF_pw1", function () {
-        var pw1 = $(this).val();
-        $(document).on("blur", "#accIF_pw2", function () {
-            pw2 = $(this).val();
-            $(this).siblings("p").text(judgePW(pw1, pw2));
-        })
+        $("#exampleModalLong").find("p").text("");
+        pw1 = $(this).val();
+        console.log(pw1);
     })
+    $(document).on("blur", "#accIF_pw2", function () {
+        $("#exampleModalLong").find("p").text("");
+        pw2 = $(this).val();
+        console.log(pw2);
+        judgePW(pw1, pw2);
+    })
+//    $("#exampleModalLong").siblings("p").text(judgePW(pw1, pw2));
     //reverse PW
     $(document).on("click", "#reversePwbtn", function () {
         $.post("/EZcloLS/ReversePw", {pw: pw2});
@@ -179,12 +189,14 @@ function genderConvert(gender) {
 }
 function judgePW(pw1, pw2) {
     var result;
-    if (pw1 !== pw2) {
+    if (pw1 != pw2) {
         result = "密碼輸入錯誤，請重新輸入";
         $("#accIF_pw1").val("");
         $("#accIF_pw2").val("");
+        $("#exampleModalLong").find("p").text(result);
+        console.log(result)
     }
-    return result;
+    
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {

@@ -44,6 +44,7 @@ public class NewTestController extends HttpServlet {
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);
                     PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
+                
                 String newtest = request.getParameter("newtest");
                 Integer choosefile = (Integer) session.getAttribute("choosefile");
                 //new test

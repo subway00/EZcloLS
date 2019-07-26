@@ -1,14 +1,6 @@
 // JavaScript Document
 
 function prepareExam() {
-    var answer = getfocus().getElementById("answer");
-    var h_answer = document.getElementById("h_answer");
-    answer.innerHTML = h_answer.textContent;
-    
-    var paper = getfocus().getElementById("content");
-    var h_paper = document.getElementById("h_paper");
-    paper.innerHTML = h_paper.textContent;
-    
     var ans = answer.getElementsByTagName("input");
     for (var i = 0; i < ans.length; i++) {
         ans[i].setAttribute("placeholder",ans[i].name); 

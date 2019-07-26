@@ -1,14 +1,33 @@
 // JavaScript Document
 
+$(document).ready(function () {
+    $("#text-cloze-bar").on('click', show);
+
+    function show(event) {
+        $("#cloze_toolbar").animate({left: '-152px'});
+        event.preventDefault();
+        $("#text-cloze-bar").off('click');
+        $("#text-cloze-bar").on('click', hide);
+    }
+
+    function hide(event) {
+        $("#cloze_toolbar").animate({left: '0px'});
+        event.preventDefault();
+        $("#text-cloze-bar").off('click');
+        $("#text-cloze-bar").on('click', show);
+    }
+});
+
+
 function cunstructNewPaper(t_num) {
     var fd =
             "T_Number=" + t_num;
-    window.open('..ConstructPaperServlet?' + fd);
+    window.open('/EZcloLS/PreparePaperServlet?' + fd);
 }
 
 function prepareExam(t_num) {
     var fd = "T_Number=" + t_num;
-    window.location.href = '/EZcloLS/PrepareExamServlet?'+fd;
+    window.location.href = '/EZcloLS/PrepareExamServlet?' + fd;
 }
 
 function createNewFile(ele) {
@@ -37,52 +56,6 @@ function getfocus() {
         result = result.document;
     }
     return result;
-}
-
-
-function construct_paper_s() {
-    var doc = getfocus();
-    var content = doc.getElementById("content");
-    var paper_tmp = document.getElementById("paper");
-    var paper = paper_tmp.textContent;
-
-    if (paper !== "")
-        content.innerHTML = paper;
-    paper.textContent = "";
-
-    content.addEventListener("input", function () {
-        if (content.childElementCount === 0) {
-            content.innerHTML = "<p class='paragraph'><br></p>";
-        }
-    }, false);
-    
-    content.addEventListener("focusin", function (e) {
-        var node = e.target;
-        if(node.nodeName==="INPUT"){
-            node.value = node.name;
-            node.readOnly =false;
-        }
-    }, false);
-    
-    content.addEventListener("focusout", function (e) {
-        var node = e.target;
-        if(node.nodeName==="INPUT"){
-            node.name = node.value;
-            node.value = "";
-            node.readOnly = true;
-        }
-    }, false);
-    
-    content.addEventListener("paste", function (e) {
-        // cancel paste
-        e.preventDefault();
-
-        // get text representation of clipboard
-        var text = (e.originalEvent || e).clipboardData.getData('text/plain');
-
-        // insert text manually
-        getfocus().execCommand("insertHTML", false, text);
-    });
 }
 
 function copy() {
@@ -246,15 +219,14 @@ function cloze() {
     var txt = select.getRangeAt(0).toString();
     var buffer = ""
     txt = txt.split(" ");
-    
-    for(var i = 0;i<txt.length;i++){
-        if(txt[i]!==""){
+
+    for (var i = 0; i < txt.length; i++) {
+        if (txt[i] !== "") {
             var answerNode = doc.createElement("input");
             answerNode.readOnly = true;
             answerNode.setAttribute("name", txt[i]);
             buffer = buffer.concat(answerNode.outerHTML);
         }
-        
     }
     insert(buffer);
     parent.normalize();
@@ -277,7 +249,6 @@ function uncloze() {
 
     console.log(getfocus().createTextNode(node.name));
     insertTxt(node.name);
-    parent.normalize();
 }
 
 function setState(state) {
@@ -286,4 +257,8 @@ function setState(state) {
     for (var i = 0; i < input.length; i++) {
         input[i].blur();
     }
+}
+
+function readme() {
+    $()
 }
