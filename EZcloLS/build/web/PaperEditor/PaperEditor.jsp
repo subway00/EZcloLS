@@ -64,7 +64,7 @@
         <div class="container-fluid">        
             <div class="header row align-items-end">
                 <div class="logo col-6 col-md-8 d-flex align-items-end">
-                    <h1><a href="#"><img src="/EZcloLS/img/logo-f.svg" alt=""/></a></h1>
+                    <h1><a href="/EZcloL"><img src="/EZcloLS/img/logo-f.svg" alt=""/></a></h1>
                     <p>&nbsp;&nbsp;&nbsp;</p>
                     <b class="d-none d-md-block">Memorize Vacabulary By Cloze</b> 
                 </div>
@@ -75,7 +75,7 @@
                             <span>一般會員 howard</span> 
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                            <a class="dropdown-item" href="#">帳號資訊</a> <a class="dropdown-item" href="#">登出</a> 
+                            <a class="dropdown-item" href="#">帳號資訊</a> <a class="dropdown-item" href="/EZcloLS/LogOutController">登出</a> 
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,15 @@ var renamefile;
 var deletefilename;
 var pw1
 var pw2;
+
 $(function () {
+    //css transfer
+    $(document).on("click", ".file", function () {
+        $(".file").removeClass("chosen-file");
+        $(this).addClass("chosen-file");
+//        $(this.file).("fileDisplay");
+        console.log(this);
+    })
     //get all file & modal when first enter this page.
     ableFile();
     OptionFileModal();
@@ -61,8 +69,8 @@ $(function () {
     //click new test
     $(document).on("click", ".newtest", function () {
         var newtest = $("#recipient-name2").val();
-        $.post("/EZcloLS/NewTestController", {newtest: newtest}, function (data) {
-            $("tbody").html(data);
+        $.post("/EZcloLS/FileManager/NewTestView.jsp", {newtest: newtest}, function (data) {
+            newTestCheck(data);
             OptionFileModal();
             bindModal();
             closeModal();
@@ -94,7 +102,7 @@ $(function () {
         clickfile = $(this).text();
         $.post("/EZcloLS/FileManager/AbleTest.jsp", {clickfile: clickfile}, function (data) {
             $("tbody").html(data);
-            ableFile();
+//            ableFile();
         })
         $.post("/EZcloLS/FileManager/OptionFileModal.jsp", {clickfile: clickfile}, function (data) {
             $("#modalgrow").html(data);
@@ -195,7 +203,17 @@ function judgePW(pw1, pw2) {
         $("#exampleModalLong").find("p").text(result);
         console.log(result)
     }
-    
+}
+function newTestCheck(data) {
+    var html = $.parseHTML(data);
+    console.log(html);
+    var ty = $(html).filter("tr");
+    console.log(ty);
+    if (ty.length === 0) {
+        alert("請先點選資料夾，再新增試卷");
+    } else {
+        $("tbody").html(data);
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {

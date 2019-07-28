@@ -3,6 +3,7 @@ package FileManager;
 import model.TestModel;
 import model.DBConnectModel;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
@@ -36,36 +37,44 @@ public class NewTestController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
         dbcm = new DBConnectModel();
         HttpSession session = request.getSession();
+        arr = new ArrayList<>();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);
                     PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
-                
+
                 String newtest = request.getParameter("newtest");
                 Integer choosefile = (Integer) session.getAttribute("choosefile");
-                //new test
-                pstmt.setString(1, newtest);
-                pstmt.setInt(2, choosefile);
-                pstmt.executeUpdate();
-                //get T_Name & T_Number & T_BuildTime & R_TestTime
-                pstmt2.setInt(1, choosefile);
-                ResultSet result = pstmt2.executeQuery();
-                arr = new ArrayList<>();
-                while (result.next()) {
-                    String tname = result.getString("T_Name");
-                    int tnumber = result.getInt("T_Number");
-                    Date tbuildtime = result.getDate("T_BuildTime");
-                    Date rtesttime = result.getDate("R_TestTime");
-                    arr.add(new TestModel(tnumber, tname, tbuildtime, rtesttime));
+                System.out.println("choosefilesession:      " + choosefile);
+                if (choosefile == 0) {
+                      out.write("<p>" + 0 + "</p>");
+//                    request.setAttribute("NoneClick", 0);
+                } else {
+                    //new test
+                    pstmt.setString(1, newtest);
+                    pstmt.setInt(2, choosefile);
+                    pstmt.executeUpdate();
+                    //get T_Name & T_Number & T_BuildTime & R_TestTime
+                    pstmt2.setInt(1, choosefile);
+                    ResultSet result = pstmt2.executeQuery();
+
+                    while (result.next()) {
+                        String tname = result.getString("T_Name");
+                        int tnumber = result.getInt("T_Number");
+                        Date tbuildtime = result.getDate("T_BuildTime");
+                        Date rtesttime = result.getDate("R_TestTime");
+                        arr.add(new TestModel(tnumber, tname, tbuildtime, rtesttime));
+                    }
+                    //RequestDispatcher
+                    request.setAttribute("ableTest", arr);
+//                rd = request.getRequestDispatcher("/FileManager/NewTestView.jsp");
+//                rd.forward(request, response);
                 }
-                //RequestDispatcher
-                request.setAttribute("ableTest", arr);
-                rd = request.getRequestDispatcher("/FileManager/AbleTest.jsp");
-                rd.forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

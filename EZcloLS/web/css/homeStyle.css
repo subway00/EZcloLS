@@ -155,9 +155,12 @@ margin-left: 15px;
 	
 }
 
-.file:hover {
+/*.file:hover {
 	border:#00B4AA solid;
 	
+}*/
+.chosen-file {
+    border:#00B4AA solid;
 }
 
 .add-file-box{
@@ -221,7 +224,8 @@ margin-left: 15px;
 	
 }
 .file-card-area p {
-    width : 150px;
+    width : 85%;
+    text-align: center;
 }
 
 .operate-button-box button {
