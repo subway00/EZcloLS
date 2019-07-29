@@ -8,11 +8,13 @@
         <meta charset="utf-8">
         <title>Ezclo Testing</title>
         <link href="/EZcloLS/css/ExamStyle.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /dAiS6Jintegrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAWXm" crossorigin="anonymous">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
     </head>
 
     <body>
+
         <div class="container-fluid">
             <div class="header row align-items-end">
                 <div class="logo col-6 col-md-8 d-flex align-items-end">
@@ -22,14 +24,7 @@
                 </div>
 
                 <div class="account-box col-6 col-md-4 ">
-                    <div class="dropdown d-flex justify-content-end">
-                        <button class="account-botton btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                            <span>一般會員 howard</span> 
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                            <a class="dropdown-item" href="#">帳號資訊</a> <a class="dropdown-item" href="#">登出</a> 
-                        </div>
-                    </div>
+                            <div id="modal-account"></div>
                 </div>
             </div>
 
@@ -121,9 +116,9 @@
         </div>
 
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script src="/EZcloLS/js/ExamScript.js"></script>
+        <script src="/EZcloLS/js/AccountMenu.js"></script>
     </body>
 </html>

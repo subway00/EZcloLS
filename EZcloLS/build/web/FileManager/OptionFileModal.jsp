@@ -137,8 +137,9 @@
     </div>
 </div>
 <!---------------------------------------------------------------------------------/新增試卷視窗-->
-<!-------------------刪除檔案視窗-->
+
 <c:forEach var="filename" items="${ablefile}">
+<!-------------------刪除檔案視窗-->
     <div class="modal fade" id="${IndexProducer.deleteIndex}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" id="file-modal">
             <div class="modal-content">
@@ -178,7 +179,7 @@
                     <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">請為你的學習夾重新命名</label>
-                            <input type="text" class="form-control rename" >
+                            <input type="text" class="form-control rename" value="${filename}">
                         </div>
                     </form>
                 </div>

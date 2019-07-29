@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>EZcloLS register</title>
+        <title>EZclo register</title>
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
         <link href="/EZcloLS/css/RegStyle.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -20,7 +20,7 @@
                     <div class="nav-box">
                         <div class="options"> <a class= "nonActive" href="/EZcloLS/index/login.jsp">登入</a> </div>
                         <div class="options"> <a class= "active" href="#">註冊</a> </div>
-                        <div class="options"> <a class= "nonActive" href="/EZcloLS/AboutUs/AboutUs.jsp">體驗EZcloLS</a> </div>
+                        <div class="options"> <a class= "nonActive" href="/EZcloLS/AboutUs/AboutUs.jsp">體驗EZclo</a> </div>
                     </div>
                 </div>
             </div>

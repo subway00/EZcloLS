@@ -18,7 +18,7 @@
                     <div class="nav-box" >
                         <div class="options"> <a class= "active" href="#" >登入</a> </div>
                         <div class="options"> <a class= "nonActive" href="/EZcloLS/Register/Register.jsp">註冊</a> </div>
-                        <div class="options"> <a class= "nonActive" href="/EZcloLS/AboutUs/AboutUs.jsp">體驗EZcloLS</a> </div>
+                        <div class="options"> <a class= "nonActive" href="/EZcloLS/AboutUs/AboutUs.jsp">體驗EZclo</a> </div>
                     </div>
                 </div>
             </div>

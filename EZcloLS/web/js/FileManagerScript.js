@@ -1,14 +1,22 @@
-var thisfilename;
-var renamefile;
-var deletefilename;
-var pw1
-var pw2;
+//var thisfilename;
+//var renamefile;
+//var deletefilename;
+//var pw1
+//var pw2;
 
 $(function () {
     //css transfer
+    var clickfile;
     $(document).on("click", ".file", function () {
         $(".file").css({"border": "none"});
         $(this).css({"border": "solid #00B4AA"});
+        clickfile = $(this);
+    })
+    $(document).on("mouseover", ".file", function() {
+        $(this).css({"border": "solid #00B4AA"})
+    })
+    $(document).on("mouseleave", ".file", function() {
+        $(".file").not(clickfile).css({"border": "none"})
     })
     //get all file & modal when first enter this page.
     ableFile();
@@ -19,7 +27,7 @@ $(function () {
         newfile = $("#recipient-name1").val();
         newFileLengthCheck(newfile);
         if (isEmptyObject(newfile)) {
-            alert("尚未輸入資料夾名稱請重新輸入");
+//            alert("尚未輸入資料夾名稱請重新輸入");
             $("#recipient-name1").val("");
         } else {
             $.post("/EZcloLS/NewFileCheckController", {newfile: newfile}, function (data) {
@@ -151,10 +159,13 @@ $(function () {
     })
 });
 function isEmptyObject(obj) {
-    for (var key in obj) {
+    var checkFileName = obj.match(/^\s/);
+    if (checkFileName) {
+        alert("尚未輸入資料夾名稱請重新輸入");
+        return true;
+    } else {
         return false;
     }
-    return true;
 }
 function ableFile() {
     $.get("/EZcloLS/FileManager/AbleFile.jsp", function (data) {

@@ -32,24 +32,12 @@ html,body {
     width:300px;
 }
 
-.account-box { }
-
-.account-botton {
-    width: 300px;
-    height: 50px;
-    text-align: right;
-}
-
 .content {
     height:auto;
 }
 .title-box {
     width:100%;
     height:90px;
-}
-
-.rename {
-    border:#8C8C8C solid;
 }
 
 .rename-box {	
@@ -60,11 +48,6 @@ html,body {
     margin: 0 ;
     font-size: 25px;
 }
-
-.toolbar-box {
-    border:#8C8C8C solid;
-}
-
 
 #text-toolbar {
     font-size: 22px;
@@ -102,7 +85,7 @@ html,body {
 } 
 
 .cloze-area {
-    min-height: 590px
+    min-height: 590px;
 }
 
 .drop-shadow {

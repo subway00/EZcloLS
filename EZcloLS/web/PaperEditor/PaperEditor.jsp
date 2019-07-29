@@ -14,7 +14,7 @@
     </head>
 
     <body>
-
+        
         <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
@@ -70,14 +70,7 @@
                 </div>
 
                 <div class="account-box col-6 col-md-4 ">
-                    <div class="dropdown d-flex justify-content-end ">
-                        <button class="account-botton btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                            <span>一般會員 howard</span> 
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
-                            <a class="dropdown-item" href="#">帳號資訊</a> <a class="dropdown-item" href="/EZcloLS/LogOutController">登出</a> 
-                        </div>
-                    </div>
+                    <div id="modal-account"></div>
                 </div>
             </div>
 
@@ -147,8 +140,6 @@
                                     <option value="2">200%</option>
                                 </select>
                             </div>
-
-
                         </div>
                         <span id="text-cloze-bar" class="toggle">克漏字作業區</span>
                     </div>
@@ -168,5 +159,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> 
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script src="/EZcloLS/js/EditorScript.js"></script>
+        <script src="/EZcloLS/js/AccountMenu.js"></script>
     </body>
 </html>

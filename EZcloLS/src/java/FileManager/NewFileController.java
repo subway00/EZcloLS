@@ -50,7 +50,7 @@ public class NewFileController extends HttpServlet {
                 pstmt.execute();
                 //select file
                 pstmt2.setInt(1, mnumber);
-                ResultSet result = pstmt2.executeQuery(searchquery);
+                ResultSet result = pstmt2.executeQuery();
                 map = new HashMap<>();
                 Map<Integer, String> map = getResult(result);
                 request.setAttribute("map", map);
