@@ -43,7 +43,6 @@
                         </div>
                         <div class="gender-check"> 會員性別&nbsp;&nbsp;&nbsp;
                             <div class="custom-control custom-radio custom-control-inline" >
-                                <!-- ------input name 只能吃一個 -->
                                 <input type="radio" value="M" name="gender" id="customRadioInline1" class="custom-control-input"  checked="true" >
                                 <label class="custom-control-label" for="customRadioInline1">男</label>
                             </div>
@@ -69,7 +68,7 @@
                             </div>
                         </div>
                         <div class="button-box">
-                            <input type="submit" name="submit" value="提交註冊" class="btn btn-primary" ></input>
+                            <input type="submit" name="submit" value="提交註冊" class="btn btn-primary">
                         </div>
                     </form>
                 </div>

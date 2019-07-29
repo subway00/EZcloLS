@@ -44,16 +44,13 @@
                     <label><i class="fa fa-bullseye" aria-hidden="true"></i></label>	  
                     <input type="text" readonly="value" id="accIF_rightRate">
                     <br> <br>
-
-                    <div class="change-password-box">	  
+                    <div class="change-password-box valid">	  
                         <b>修改密碼</b> <br>
-                        <input type="password"  value="" id="accIF_pw1">
-                        <label>輸入新密碼</label>  <br>  
-
-                        <input type="password"  value="" id="accIF_pw2">
-                        <label>確認新密碼</label>  <br> 
+                        <input type="password"  id="accIF_pw1" class="form-control" placeholder="設定密碼">
+                        <input type="password"  id="accIF_pw2" class="form-control" placeholder="確認密碼">
+                        <br> 
                         <p></p>
-                    </div>  
+                    </div> 
                 </div>  
             </div>
             <div class="modal-footer">

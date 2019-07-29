@@ -43,7 +43,7 @@
 
 
             <div class="content row">
-                <div class="file-area col-4">
+                <div class="file-area col-md-4">
                     <p id="file-title">您的學習夾</p>
 
                     <div class="add-file-box" data-toggle="modal" data-target="#exampleModal1">

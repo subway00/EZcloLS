@@ -57,10 +57,10 @@ margin-left: 15px;
 }
 
 .container-fluid {
-	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
     font-size: 20px;
-	color:white;
-	background-color: #3D3D3D;
+    color:white;
+    background-color: #3D3D3D;
 	
 }
 
@@ -98,9 +98,16 @@ margin-left: 15px;
 
 .content {
 	height: 750px;
-	
+
 }
 
+.file-area {
+   
+        height:auto;
+	border: #8C8C8C solid; 
+        width:500px;
+     
+}
 #file-title {
 	height:20px;
 	text-align: center;
@@ -114,9 +121,9 @@ margin-left: 15px;
 	border: #8C8C8C solid;
 }
 
-.file-area {
-	height:auto;
-	border: #8C8C8C solid;
+
+.card-header {
+    height:80px;
 }
 
 .file{
@@ -140,7 +147,7 @@ margin-left: 15px;
 .add-file-box {
 	width:97%;
 	border:#8C8C8C solid 3px;
-	
+	cursor:pointer;
 }
 
 .add-file-box h5 {
@@ -150,15 +157,13 @@ margin-left: 15px;
 }
 
 .add-file-box:hover {
-	border:#FF0096 solid;
-
-	
+	border:#FF0096 solid;	
 }
 
-/*.file:hover {
+.file:hover {
 	border:#00B4AA solid;
 	
-}*/
+}
 .chosen-file {
     border:#00B4AA solid;
 }
@@ -168,14 +173,14 @@ margin-left: 15px;
 	text-indent: 30px;
 	margin: 5px 10px 10px 0px;
 	border: #8C8C8C solid;
-	
-	
 }
 
 .card-header p {
-	margin-top: 10px;
-	float:left;
-	
+        height:80px;
+        line-height: 80px;
+        float:left;
+        cursor: pointer;
+        margin-top: -12px;
 }
 
 .card-header img {
@@ -247,7 +252,7 @@ margin-left: 15px;
 .minus b {
 	color:#00B4AA;
 	text-decoration: none;
-	
+	cursor:pointer;
 }
 
 .minus b:hover {
@@ -257,7 +262,7 @@ margin-left: 15px;
 }
 
 .footer{
-	background-color:#707070;
+     background-color:#707070;
 	color:#FFFFFF;
     padding: 20px 40px 10px 20px;
 	
@@ -274,3 +279,162 @@ src:url(../Font/Entypo-webfont.ttf);
 font-family: sosa;
 	src:url(../Font/sosa-regular-webfont.ttf);
 }*/
+
+@media (max-width:1250px) {
+
+.file-card-area p {
+    width : 60%;
+
+}    
+    
+}
+
+
+@media (max-width:960px) {
+    
+
+
+.account-botton {
+    position: absolute;
+    right:30px;
+    top: 30px;
+    width: 200px;
+    height: 50px;
+    text-align: right;
+	
+}
+
+.content {
+	height: auto;
+
+}
+
+.file-area {
+   
+        height:420px;;
+	border: #8C8C8C solid; 
+        
+     
+}
+
+
+.exam {
+	
+	border: #8C8C8C solid;
+        font-size: 18px;
+}
+
+
+.card-header {
+    height:80px;
+}
+
+.file{
+	height:80px;
+	margin: 5px 10px 10px 0px;
+	
+}
+
+.add-file-pic {
+	position:absolute;
+	right:50px;
+	top: 62px;
+}
+
+.add-file-pic img {
+	width:60px;
+	
+}
+
+
+.add-file-box {
+	width:97%;
+	border:#8C8C8C solid 3px;
+	cursor:pointer;
+}
+
+.add-file-box h5 {
+	line-height: 80px;
+	text-indent: 30px;
+	color:#FFFFFF;
+}
+
+.add-file-box:hover {
+	border:#FF0096 solid;	
+}
+
+.file:hover {
+	border:#00B4AA solid;
+	
+}
+.chosen-file {
+    border:#00B4AA solid;
+}
+
+.add-file-box{
+	height:80px;
+	text-indent: 30px;
+	margin: 5px 10px 10px 0px;
+	border: #8C8C8C solid;
+}
+
+.card-header p {
+        height:80px;
+        line-height: 80px;
+        float:left;
+        cursor: pointer;
+        margin-top: -12px;
+}
+
+.card-header img {
+	width: 50px;
+	margin: 10px;
+	
+}
+
+
+.file-drop {
+	width:50px;
+	float:right;
+}
+
+.add-exam {
+	height: 70px;
+	border: #8C8C8C solid;
+}
+
+.add-exam p {
+	margin: 22px 10px 0 10px;
+	
+}
+
+
+.add-exam-button button {
+	height: 50px;
+	width: 200px;
+	position: absolute;
+	font-size: 20px;
+	color: #FF0096;
+	border: #FF0096 solid;
+	right: 50px;
+	top: 11px;
+}
+
+
+.file-card-area {
+	
+	overflow-y:scroll;
+	position: absolute;
+	width:97%;
+        top:140px;
+	bottom: 0;
+	height: 270px;;
+	
+}
+.file-card-area p {
+    width : 60%;
+    text-align: center;
+}
+
+  
+}

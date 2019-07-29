@@ -7,10 +7,8 @@ var pw2;
 $(function () {
     //css transfer
     $(document).on("click", ".file", function () {
-        $(".file").removeClass("chosen-file");
-        $(this).addClass("chosen-file");
-//        $(this.file).("fileDisplay");
-        console.log(this);
+        $(".file").css({"border": "none"});
+        $(this).css({"border": "solid #00B4AA"});
     })
     //get all file & modal when first enter this page.
     ableFile();
@@ -19,6 +17,7 @@ $(function () {
     //click newfile
     $(document).on("click", ".newfile", function () {
         newfile = $("#recipient-name1").val();
+        newFileLengthCheck(newfile);
         if (isEmptyObject(newfile)) {
             alert("尚未輸入資料夾名稱請重新輸入");
             $("#recipient-name1").val("");
@@ -69,12 +68,16 @@ $(function () {
     //click new test
     $(document).on("click", ".newtest", function () {
         var newtest = $("#recipient-name2").val();
-        $.post("/EZcloLS/FileManager/NewTestView.jsp", {newtest: newtest}, function (data) {
-            newTestCheck(data);
-            OptionFileModal();
-            bindModal();
-            closeModal();
-        });
+        if (newTestLengthCheck(newtest)) {
+            $("#recipient-name2").val("");
+        } else {
+            $.post("/EZcloLS/FileManager/NewTestView.jsp", {newtest: newtest}, function (data) {
+                newTestCheck(data);
+                OptionFileModal();
+                bindModal();
+                closeModal();
+            });
+        }
     });
     //click delete test
     $(document).on("click", ".deletetest", function () {
@@ -124,7 +127,6 @@ $(function () {
     $(document).on("blur", "#accIF_pw1", function () {
         $("#exampleModalLong").find("p").text("");
         pw1 = $(this).val();
-        console.log(pw1);
     })
     $(document).on("blur", "#accIF_pw2", function () {
         $("#exampleModalLong").find("p").text("");
@@ -132,15 +134,20 @@ $(function () {
         console.log(pw2);
         judgePW(pw1, pw2);
     })
-//    $("#exampleModalLong").siblings("p").text(judgePW(pw1, pw2));
     //reverse PW
     $(document).on("click", "#reversePwbtn", function () {
-        $.post("/EZcloLS/ReversePw", {pw: pw2});
-        bindModal();
-        closeModal();
-        $("#accIF_pw1").val("");
-        $("#accIF_pw2").val("");
-        alert("密碼變更成功");
+        var checkPW1 = pw1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
+        var checkPW2 = pw2.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
+        if (!checkPW1 || !checkPW2) {
+            $("#exampleModalLong").find("p").text("輸入格式錯誤，請重新輸入");
+        } else {
+            $.post("/EZcloLS/ReversePw", {pw: pw2});
+            bindModal();
+            closeModal();
+            $("#accIF_pw1").val("");
+            $("#accIF_pw2").val("");
+            alert("密碼變更成功");
+        }
     })
 });
 function isEmptyObject(obj) {
@@ -179,8 +186,29 @@ function activeElement() {
     rename = $(this).parent().siblings().find("p").val();
     return rename;
 }
+function newFileLengthCheck(newfile) {
+//    console.log("newfile:   " + newfile);
+    var strlength = newfile.length;
+//    console.log("newfile length:   " + strlength);
+    var checkfile = strlength <= 20;
+//    console.log("checkfile:     "+ checkfile)
+    if (!checkfile) {
+        alert("超出最大資料夾名稱長度限制，請重新輸入")
+//        alert("符合長度")
+    }
+}
 function newFileSuccess() {
     $("#recipient-name1").val("");
+}
+function newTestLengthCheck(newtest) {
+    var strlength = newtest.length;
+    var checktest = strlength <= 20;
+    if (!checktest) {
+        alert("超出最大試卷名稱長度限制，請重新輸入")
+        return true;
+    } else {
+        return false;
+    }
 }
 function newTestSuccess() {
     $("#recipient-name2").val("");
@@ -200,9 +228,9 @@ function judgePW(pw1, pw2) {
         result = "密碼輸入錯誤，請重新輸入";
         $("#accIF_pw1").val("");
         $("#accIF_pw2").val("");
-        $("#exampleModalLong").find("p").text(result);
         console.log(result)
     }
+    $("#exampleModalLong").find("p").text(result);
 }
 function newTestCheck(data) {
     var html = $.parseHTML(data);
