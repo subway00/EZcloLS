@@ -50,8 +50,8 @@ public class NewTestController extends HttpServlet {
 
                 String newtest = request.getParameter("newtest");
                 Integer choosefile = (Integer) session.getAttribute("choosefile");
-                System.out.println("choosefilesession:      " + choosefile);
-                if (choosefile == 0) {
+//                System.out.println("choosefilesession:      " + choosefile);
+                if (session.getAttribute("choosefile") == null) {
                       out.write("<p>" + 0 + "</p>");
 //                    request.setAttribute("NoneClick", 0);
                 } else {

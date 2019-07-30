@@ -20,7 +20,7 @@
                     <div class="nav-box">
                         <div class="options"> <a class= "nonActive" href="/EZcloLS/index/login.jsp">登入</a> </div>
                         <div class="options"> <a class= "active" href="#">註冊</a> </div>
-                        <div class="options"> <a class= "nonActive" href="/EZcloLS/AboutUs/AboutUs.jsp">體驗EZclo</a> </div>
+                        <div class="options"> <a class= "pre nonActive" href="/EZcloLS/AboutUs/AboutUs.jsp">體驗EZclo</a> </div>
                     </div>
                 </div>
             </div>

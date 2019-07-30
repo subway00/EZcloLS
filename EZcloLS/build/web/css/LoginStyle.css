@@ -2,61 +2,64 @@
 /* CSS Document */
 
 *{
-
-    margin:0px;
-    padding: 0px;
-
+	
+	margin:0px;
+	padding: 0px;
+	
 } 
 
 .container-fluid {
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
+    font-size: 28px;
+	 
 }
 
 .header {
-    position:relative;
-    box-shadow: 0 3px 5px 3px #C3C3C3 ;
+	position:relative;
+	box-shadow: 0 3px 5px 3px #C3C3C3 ;
 }
 
 .logo{	}
 
 .logo img{
-    width:180px;
-    padding: 15px 0 0px 0px;
-
+	width:180px;
+	padding: 15px 0px 0px 0px;
+	
 }
 
 .logo b {
     position: absolute;
     left: 215px;
     top: 93px;
-    font-size: 18px;
-    color:#8C8C8C;
-    width:300px;
-
+	font-size: 18px;
+	color:#8C8C8C;
+	width:300px;
+	
 }
 
 .nav-box {
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    width:100%;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	width:100%;
+	padding-right: 40px;
 }
 
 .options {
-    font-size: 40px;
+	font-size: 40px;
 }
 
 .options a {
-    color:#000000;
-    margin-top:8px;
-    text-decoration: none;
-    float:right;
-    width:240px;
-    height: 120px;
-    text-align: center;
-    line-height: 130px;
-
+	    color:#000000;
+	    margin-top:8px;
+	    text-decoration: none;
+	    float:right;
+	    width:260px;
+	    height: 120px;
+	    text-align: center;
+	    line-height: 130px;
 }
+
 
 .options .active{
     background-color:#FF0096;
@@ -70,12 +73,16 @@
     color: #000000;
 }
 
+.options .pre {
+    width:330px;
+    
+}
+
 .options .nonActive:hover  { 
     background-color:#00B4AA ;
     color:aliceblue;
     text-decoration: none;
 }
-
 .content {
     height: 750px;;
 }
@@ -134,3 +141,39 @@
 .footertext {
 
 }
+
+@media (max-width:950px) {
+
+
+.nav-box {
+	display: flex;
+	width:100%;
+	padding-right: 10px;
+}
+
+.options {
+	font-size: 26px;
+}
+
+.options a {
+	    margin-top:0px;
+	    float:right;
+	    width:130px;
+	    height: 90px;
+	    line-height: 110px;
+}
+
+
+.options .pre {
+	    width:180px;
+}
+
+.content {
+	width:100%;
+	float: none;
+	font-size: 20px;
+	padding: 50px 15px 50px 15px;
+}
+
+
+  }

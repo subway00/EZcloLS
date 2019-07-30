@@ -23,7 +23,7 @@
 
 .logo img{
 	width:180px;
-	padding: 15px 0 0px 0px;
+	padding: 15px 0px 0px 0px;
 	
 }
 
@@ -42,6 +42,7 @@
 	align-items: center;
 	flex-direction: row-reverse;
 	width:100%;
+	padding-right: 40px;
 }
 
 .options {
@@ -53,7 +54,7 @@
 	    margin-top:8px;
 	    text-decoration: none;
 	    float:right;
-	    width:240px;
+	    width:260px;
 	    height: 120px;
 	    text-align: center;
 	    line-height: 130px;
@@ -72,12 +73,16 @@
     color: #000000;
 }
 
+.options .pre {
+    width:330px;
+    
+}
+
 .options .nonActive:hover  { 
     background-color:#00B4AA ;
     color:aliceblue;
     text-decoration: none;
 }
-
 .content {
  height:750px;	
 }
@@ -157,7 +162,41 @@
 }
 
 
+@media (max-width:950px) {
 
+
+.nav-box {
+	display: flex;
+	width:100%;
+	padding-right: 10px;
+}
+
+.options {
+	font-size: 26px;
+}
+
+.options a {
+	    margin-top:0px;
+	    float:right;
+	    width:130px;
+	    height: 90px;
+	    line-height: 110px;
+}
+
+
+.options .pre {
+	    width:180px;
+}
+
+.content {
+	width:100%;
+	float: none;
+	font-size: 20px;
+	padding: 50px 15px 50px 15px;
+}
+
+
+  }
 
 
 

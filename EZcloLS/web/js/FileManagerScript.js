@@ -1,4 +1,5 @@
 $(function () {
+//    $(".exam").css({"overflow": "scroll"});
     //css transfer
     var clickfile;
     $(document).on("click", ".file", function () {
@@ -80,6 +81,7 @@ $(function () {
                 OptionFileModal();
                 bindModal();
                 closeModal();
+//                examScroll();
             });
         }
     });
@@ -96,6 +98,7 @@ $(function () {
                 OptionFileModal();
                 bindModal();
                 closeModal();
+                
             })
         }
     })
@@ -157,6 +160,7 @@ $(function () {
             alert("密碼變更成功");
         }
     })
+    
 });
 function ableFile() {
     $.get("/EZcloLS/FileManager/AbleFile.jsp", function (data) {
@@ -215,7 +219,7 @@ function judgePW(pw1, pw2) {
 }
 function newTestCheck(data) {
     var html = $.parseHTML(data);
-    console.log(html);
+//    console.log(html);
     var ty = $(html).filter("tr");
     console.log(ty);
     if (ty.length === 0) {
@@ -247,11 +251,14 @@ function nameProtect(name) {
     alert(alertString);
     return yn;
 }
+function examScroll() {
+    
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {
-//    $(".modal").on("hide.bs.modal", function () {
-//        $(".modal-backdrop").remove();
-//    })
+    $(".modal").on("hide.bs.modal", function () {
+        $(".modal-backdrop").remove();
+    })
 }
 function closeModal() {
     $(".modal").modal('hide');

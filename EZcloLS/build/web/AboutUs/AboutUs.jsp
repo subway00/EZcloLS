@@ -18,9 +18,9 @@
       <b>Memorize Vacabulary By Cloze</b> </div>
     <div class="nav col">
       <div class="nav-box">
-        <div class="options"> <a class= "a1" href="/EZcloLS/index/login.jsp">登入</a> </div>
-        <div class="options"> <a class= "a2" href="/EZcloLS/Register/Register.jsp">註冊</a> </div>
-        <div class="options"> <a class= "a3" href="#">體驗EZclo</a> </div>
+        <div class="options"> <a class= "nonActive" href="/EZcloLS/index/login.jsp">登入</a> </div>
+        <div class="options"> <a class= "nonActive" href="/EZcloLS/Register/Register.jsp">註冊</a> </div>
+        <div class="options"> <a class= "pre active" href="#">體驗EZclo</a> </div>
       </div>
     </div>
   </div>
