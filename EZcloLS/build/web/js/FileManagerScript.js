@@ -1,5 +1,5 @@
 $(function () {
-//    $(".exam").css({"overflow": "scroll"});
+    $(".exam").css({"overflow": "scroll"});
     //css transfer
     var clickfile;
     $(document).on("click", ".file", function () {
@@ -219,9 +219,7 @@ function judgePW(pw1, pw2) {
 }
 function newTestCheck(data) {
     var html = $.parseHTML(data);
-//    console.log(html);
     var ty = $(html).filter("tr");
-    console.log(ty);
     if (ty.length === 0) {
         alert("請先點選資料夾，再新增試卷");
     } else {

@@ -103,9 +103,14 @@ function save_s(f_num, t_num) {
         input[i].setAttribute("readOnly", true);
     }
 
-    var contentxt = content.innerHTML.replace(/&nbsp;/g, " ");
-    var answertxt = letter.innerHTML.replace(/&nbsp;/g, " ");
-
+    var contentxt = content.innerHTML.replace(/'/g, "''");
+    var contentxt = contentxt.replace(/&nbsp;/g, " ");
+    
+    var answertxt = letter.innerHTML.replace(/'/g, "''");
+    var answertxt = answertxt.replace(/&nbsp;/g, " ");
+    
+    console.log(contentxt);
+    console.log(answertxt);
     var data =
             "T_Name=" + name +
             "&T_Content=" + contentxt +
