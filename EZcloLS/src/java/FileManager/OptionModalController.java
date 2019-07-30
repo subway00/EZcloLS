@@ -25,31 +25,26 @@ public class OptionModalController extends HttpServlet {
     IndexProducerModel index;
     ArrayList<String> arr;
     DBConnectModel dbcm;
+    String searchfilenum = "SELECT F_Number FROM FileFolder WHERE F_Able=1 AND F_Name=?";
     String searchfile = "SELECT F_Name FROM FileFolder WHERE F_Able=1 AND M_Number=? ORDER BY F_Number";
-    String searchclickfile = "SELECT F_Number FROM FileFolder WHERE F_Able=1 AND F_Name=?";
     String searchtest = "SELECT T_Name, T_Number FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
 //    String searchmnumber ="SELECT M_Number FROM Member WHERE M_Email=?";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         session = request.getSession();
+        session = request.getSession();
         dbcm = new DBConnectModel();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             try (
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
-                    PreparedStatement pstmt3 = con.prepareStatement(searchfile);
-                    PreparedStatement pstmt = con.prepareStatement(searchclickfile);
-                    PreparedStatement pstmt2 = con.prepareStatement(searchtest);
-                    ) {
-//                file
+                    PreparedStatement pstmt1 = con.prepareStatement(searchfilenum);
+                    PreparedStatement pstmt2 = con.prepareStatement(searchfile);
+                    PreparedStatement pstmt3 = con.prepareStatement(searchtest);) {
+//                file modal
                 int mnumber = (Integer) session.getAttribute("M_Number");
-//                pstmt4.setString(1, email);
-//                ResultSet result1 = pstmt4.executeQuery();
-//                int mnumber = result1.getInt("M_Number");
-                //
-                pstmt3.setInt(1, mnumber);
-                ResultSet result = pstmt3.executeQuery();
+                pstmt2.setInt(1, mnumber);
+                ResultSet result = pstmt2.executeQuery();
                 arr = new ArrayList<>();
                 while (result.next()) {
                     String ablefile = result.getString("F_Name");
@@ -59,25 +54,44 @@ public class OptionModalController extends HttpServlet {
                 request.setAttribute("ablefile", arr);
                 request.setAttribute("IndexProducer", index);
 //                click file
-                String clickfile = request.getParameter("clickfile");
-                pstmt.setString(1, clickfile);
-                ResultSet result2 = pstmt.executeQuery();
-                int i = 0;
-                while (result2.next()) {
-                    i = result2.getInt("F_Number");
+//                String clickfile = request.getParameter("clickfile");
+//                System.out.println("clickfile  " + clickfile);
+//                pstmt1.setString(1, clickfile);
+//                ResultSet result2 = pstmt1.executeQuery();
+//                int i = 0;
+                int fnumber = 0;
+                if (request.getParameter("clickfile") != null) {
+                    System.out.println("clickfile request call");
+                    String clickfile = request.getParameter("clickfile");
+                    pstmt1.setString(1, clickfile);
+                    ResultSet result2 = pstmt1.executeQuery();
+                    while (result2.next()) {
+                        fnumber = result2.getInt("F_Number");
+                    }
+                } else {
+                    if (session.getAttribute("choosefile") != null) {
+                        fnumber = (Integer) session.getAttribute("choosefile");
+                    }
                 }
-                System.out.println("i為:" + i);
+                pstmt3.setInt(1, fnumber);
+                //get F_Number
+//                i = result2.getInt("F_Number");
+//                System.out.println("i為:" + i);
 //                test
                 //判斷取得session或拿點擊資料夾號碼(試卷增、刪、修，後仍位於以點選的資料夾位置)
-                    
-                if (session.getAttribute("choosefile") != null) {
-                    int choosefile = (Integer) session.getAttribute("choosefile");
-                    pstmt2.setInt(1, choosefile);
-                } else {
-                    pstmt2.setInt(1, i);
-                }
+//                if (i != 0) {
+//                    pstmt3.setInt(1, i);
+//                } else {
+//                    if (session.getAttribute("choosefile") != null) {
+//                        int choosefile = (Integer) session.getAttribute("choosefile");
+//                        pstmt3.setInt(1, choosefile);
+//                    }
+//                }
 
-                ResultSet result3 = pstmt2.executeQuery();
+//else if (i != 0) {
+//                    pstmt2.setInt(1, i);
+//                }
+                ResultSet result3 = pstmt3.executeQuery();
                 arr2 = new ArrayList<>();
                 while (result3.next()) {
                     int testnumber = result3.getInt("T_Number");
