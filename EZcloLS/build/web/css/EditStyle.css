@@ -107,7 +107,7 @@ html,body {
 }
 
 .make-cloze-panel{
-    background-color: #3D3D3D50;
+    background-color: rgba(61,61,61,0.2);
 }
 
 .make-clo-btn {
@@ -117,7 +117,7 @@ html,body {
     border: #FF0096 solid;
     text-align: center;
     border-radius: 50%;
-    background-color: #000000FF;
+    background-color: rgba(0,0,0,1);
     webkit-transition: background .2s linear;
     transition: background .2s linear;
 }

@@ -44,12 +44,14 @@
                     <label><i class="fa fa-bullseye" aria-hidden="true"></i></label>	  
                     <input type="text" readonly="value" id="accIF_rightRate">
                     <br> <br>
-                    <div class="change-password-box valid">	  
-                        <h5>修改密碼</h5> <br>
-                        <input type="password"  id="accIF_pw1" class="form-control" placeholder="設定密碼">
+                    <div class="change-password-box valid">
+                        <i class="fas fa-key"></i>
+                        <b>修改密碼</b><br> 
                         <small>請輸入含有英文字母及數字的密碼，至少六個字元。</small>
+                        <input type="password"  id="accIF_pw1" class="form-control" placeholder="設定密碼">
+                        
                         <input type="password"  id="accIF_pw2" class="form-control" placeholder="確認密碼">
-                        <br> 
+                        
                         <p></p>
                     </div> 
                 </div>  

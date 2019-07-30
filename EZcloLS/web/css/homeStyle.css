@@ -31,28 +31,32 @@ i {
     margin:0 5px 0 10px;
 
 }
+
 .change-password-box b {
+    height: 22px;
     font-size: 22px;	
-    margin-left: 15px;	
+    margin: 0 0 0 15px;	
+  
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
+}
+.change-password-box small{
+   
+    margin-left:9px;
+    font-size: 14px;
 }
 
 .change-password-box p {
-    font-size: 22px;
-    height: 22px;
-    margin-left: 15px;	
-    color: red;
-    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, "微軟正黑體","sans-serif";
+  margin-top: -10px;
+  margin-left:20px;
+  color: red;
+  font-size: 18px;  
+    
 }
 
 .change-password-box input{
     border: #000000 solid;
     width:70%;
 
-}
-.change-password-box small{
-    font-size: 16px;
-    margin-top: -5px;
-    color: #8C8C8C;
 }
 
 
@@ -126,7 +130,7 @@ i {
 
 .exam {
     border: #8C8C8C solid;
-    /*    overflow: scroll;*/
+/*    overflow: scroll;*/
     height: 750px;
 }
 
@@ -153,9 +157,7 @@ i {
 
 .add-file-pic img {
     width:60px;
-
 }
-
 
 .add-file-box {
     width:97%;
@@ -190,9 +192,7 @@ i {
 .card-header img {
     width: 50px;
     margin: 10px;
-
 }
-
 
 .file-drop {
     width:50px;
@@ -206,9 +206,7 @@ i {
 
 .add-exam p {
     margin: 22px 10px 0 10px;
-
 }
-
 
 .add-exam-button button {
     height: 50px;

@@ -46,9 +46,9 @@ public class AbleTestController extends HttpServlet {
                     PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
 
                 //get sesssion
-                // int F_Number = 0;
+                 int F_Number = 0;
 //               
-//                sessionGetSet(F_Number);
+                sessionGetSet(F_Number, session);
                 String selectfile = request.getParameter("clickfile");
                 pstmt.setString(1, selectfile);
                 ResultSet result = pstmt.executeQuery();

@@ -41,7 +41,6 @@ public class OptionModalController extends HttpServlet {
                     PreparedStatement pstmt3 = con.prepareStatement(searchfile);
                     PreparedStatement pstmt = con.prepareStatement(searchclickfile);
                     PreparedStatement pstmt2 = con.prepareStatement(searchtest);
-//                    PreparedStatement pstmt4 = con.prepareStatement(searchmnumber)
                     ) {
 //                file
                 int mnumber = (Integer) session.getAttribute("M_Number");
@@ -66,7 +65,6 @@ public class OptionModalController extends HttpServlet {
                 int i = 0;
                 while (result2.next()) {
                     i = result2.getInt("F_Number");
-
                 }
                 System.out.println("i為:" + i);
 //                test
