@@ -60,7 +60,7 @@ $(function () {
     });
     //click delete file
     $(document).on("click", ".file-edit", function () {
-        deletefilename = $(this).parent().siblings("p").text();
+        var deletefilename = $(this).parent().siblings("p").text();
         $(document).on("click", ".deletefile", function () {
             $.post("/EZcloLS/DeleteFileController", {deletefilename: deletefilename}, function () {
                 ableFile();
