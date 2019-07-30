@@ -1,9 +1,3 @@
-//var thisfilename;
-//var renamefile;
-//var deletefilename;
-//var pw1
-//var pw2;
-
 $(function () {
     //css transfer
     var clickfile;
@@ -25,8 +19,6 @@ $(function () {
     //click newfile
     $(document).on("click", ".newfile", function () {
         newfile = $("#recipient-name1").val();
-//        newFileLengthCheck(newfile);
-//        injectionProtect(newfile);
         if (nameProtect(newfile)) {
             $("#recipient-name1").val("");
         } else {
@@ -122,7 +114,6 @@ $(function () {
         clickfile = $(this).text();
         $.post("/EZcloLS/FileManager/AbleTest.jsp", {clickfile: clickfile}, function (data) {
             $("tbody").html(data);
-//            ableFile();
         })
         $.post("/EZcloLS/FileManager/OptionFileModal.jsp", {clickfile: clickfile}, function (data) {
             $("#modalgrow").html(data);
@@ -167,15 +158,6 @@ $(function () {
         }
     })
 });
-//function isEmptyObject(obj) {
-//    var checkFileName = obj.match(/^\s/);
-//    if (checkFileName) {
-//        alert("尚未輸入資料夾名稱請重新輸入");
-//        return true;
-//    } else {
-//        return false;
-//    }
-//}
 function ableFile() {
     $.get("/EZcloLS/FileManager/AbleFile.jsp", function (data) {
         $(".file-card-area").html(data);
@@ -206,30 +188,9 @@ function activeElement() {
     rename = $(this).parent().siblings().find("p").val();
     return rename;
 }
-//function newFileLengthCheck(newfile) {
-////    console.log("newfile:   " + newfile);
-//    var strlength = newfile.length;
-////    console.log("newfile length:   " + strlength);
-//    var checkfile = strlength <= 20;
-////    console.log("checkfile:     "+ checkfile)
-//    if (!checkfile) {
-//        alert("超出最大資料夾名稱長度限制，請重新輸入")
-////        alert("符合長度")
-//    }
-//}
 function newFileSuccess() {
     $("#recipient-name1").val("");
 }
-//function newTestLengthCheck(newtest) {
-//    var strlength = newtest.length;
-//    var checktest = strlength <= 20;
-//    if (!checktest) {
-//        alert("超出最大試卷名稱長度限制，請重新輸入")
-//        return true;
-//    } else {
-//        return false;
-//    }
-//}
 function newTestSuccess() {
     $("#recipient-name2").val("");
 }
@@ -263,12 +224,6 @@ function newTestCheck(data) {
         $("tbody").html(data);
     }
 }
-//function injectionProtect(name) {
-//    var inj = name.match(/select|update|delete|exec|count|'|"|=|;|>|<|%/i);
-//    if (inj) {
-//        alert("請您不要在引數中輸入特殊字元和SQL關鍵字！");
-//    }
-//}
 function nameProtect(name) {
     var yn;
     var alertString;
@@ -294,9 +249,9 @@ function nameProtect(name) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {
-    $(".modal").on("hide.bs.modal", function () {
-        $(".modal-backdrop").remove();
-    })
+//    $(".modal").on("hide.bs.modal", function () {
+//        $(".modal-backdrop").remove();
+//    })
 }
 function closeModal() {
     $(".modal").modal('hide');

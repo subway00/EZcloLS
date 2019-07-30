@@ -76,7 +76,7 @@ public class utils {
 
             message.setFrom(new InternetAddress(em.getFrom()));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(em.getTo()));
-            message.setSubject("信箱驗證");
+            message.setSubject(em.getSubject());
             message.setContent(em.getContext(),"text/html;charset=utf-8");
             Transport transport = em.getTransport(session);
             

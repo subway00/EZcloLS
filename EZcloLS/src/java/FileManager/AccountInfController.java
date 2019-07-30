@@ -22,27 +22,26 @@ import java.util.Map;
 @WebServlet(name = "AccountInf", urlPatterns = {"/AccountInfController"})
 public class AccountInfController extends HttpServlet {
 
-    JSONObject jsonObj;
-    AccountStorageModel accs;
-    HttpSession session;
-    DBConnectModel dbcm;
-//    String selectmember = "SELECT M_Email, M_Gender, M_Born FROM Member WHERE M_Number=?";
-    String searchAccInf = "SELECT M_Email, M_Gender, M_Born, \n"
-            + "COUNT(R.R_Number)  AS 'FinishTest',\n"
-            + "SUM(R.R_Wrong) + SUM(R.R_Right) AS 'TotalQuestions',\n"
-            + "SUM(R.R_Right) AS 'RightCount',\n"
-            + "ROUND(CONVERT(float, SUM(R.R_Right))/ SUM(R.R_Wrong + R.R_Right) *100, 2) AS 'RightRate'\n"
-            + "FROM Member AS M LEFT JOIN FileFolder AS F\n"
-            + "ON M.M_Number=F.M_Number\n"
-            + "LEFT JOIN Test AS T\n"
-            + "ON F.F_Number=T.F_Number\n"
-            + "LEFT JOIN Result AS R\n"
-            + "ON T.T_Number=R.T_Number\n"
-            + "WHERE M.M_Number=? \n"
-            + "GROUP BY M_Email, M_Gender, M_Born\n";
-            
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        JSONObject jsonObj;
+        AccountStorageModel accs;
+        HttpSession session;
+        DBConnectModel dbcm;
+        String searchAccInf = "SELECT M_Email, M_Gender, M_Born, \n"
+                + "COUNT(R.R_Number)  AS 'FinishTest',\n"
+                + "SUM(R.R_Wrong) + SUM(R.R_Right) AS 'TotalQuestions',\n"
+                + "SUM(R.R_Right) AS 'RightCount',\n"
+                + "ROUND(CONVERT(float, SUM(R.R_Right))/ SUM(R.R_Wrong + R.R_Right) *100, 2) AS 'RightRate'\n"
+                + "FROM Member AS M LEFT JOIN FileFolder AS F\n"
+                + "ON M.M_Number=F.M_Number\n"
+                + "LEFT JOIN Test AS T\n"
+                + "ON F.F_Number=T.F_Number\n"
+                + "LEFT JOIN Result AS R\n"
+                + "ON T.T_Number=R.T_Number\n"
+                + "WHERE M.M_Number=? \n"
+                + "GROUP BY M_Email, M_Gender, M_Born\n";
         PrintWriter out = response.getWriter();
         dbcm = new DBConnectModel();
         //JSON
