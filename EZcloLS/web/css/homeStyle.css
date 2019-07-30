@@ -37,11 +37,16 @@ i {
     margin-left: 15px;	
 
 }
-
 .change-password-box input{
     border: #000000 solid;
     width:70%;
 
+}
+.change-password-box small {
+    font-size: 16px;
+    margin-top: -5px;
+    
+    color: #8C8C8C;
 }
 .change-password-box p {
     color: red;
@@ -164,14 +169,14 @@ i {
 .add-file-box:hover {
     border:#FF0096 solid;	
 }
-
-/*.file:hover {
+/*
+.file:hover {
     border:#00B4AA solid;
 
 }*/
-/*.file:not(.no-hover):hover {
+.chosen-file {
     border:#00B4AA solid;
-}*/
+}
 
 .add-file-box{
     height:80px;
@@ -204,13 +209,10 @@ i {
     height: 70px;
     border: #8C8C8C solid;
 }
-
 .add-exam p {
     margin: 22px 10px 0 10px;
 
 }
-
-
 .add-exam-button button {
     height: 50px;
     width: 200px;
@@ -288,7 +290,7 @@ font-family: sosa;
 @media (max-width:1250px) {
 
     .file-card-area p {
-        width : 60%;
+        width : 80%;
 
     }    
 
@@ -437,7 +439,7 @@ font-family: sosa;
 
     }
     .file-card-area p {
-        width : 60%;
+        width : 80%;
         text-align: center;
     }
 

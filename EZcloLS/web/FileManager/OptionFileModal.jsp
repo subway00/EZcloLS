@@ -47,6 +47,7 @@
                     <div class="change-password-box valid">	  
                         <b>修改密碼</b> <br>
                         <input type="password"  id="accIF_pw1" class="form-control" placeholder="設定密碼">
+                        <small>請輸入含有英文字母及數字的密碼，至少六個字元。</small>
                         <input type="password"  id="accIF_pw2" class="form-control" placeholder="確認密碼">
                         <br> 
                         <p></p>
@@ -235,7 +236,7 @@
                     <form class="formclass">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">請為你的試卷重新命名</label>
-                            <input type="text" class="form-control rename">
+                            <input type="text" class="form-control rename" value="${testname.tname}">
                         </div>
                     </form>
                 </div>

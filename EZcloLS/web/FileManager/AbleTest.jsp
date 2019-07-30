@@ -23,4 +23,3 @@
     </tr>
 
 </c:forEach >
-<script src="/EZcloLS/js/EditorScript.js"></script>

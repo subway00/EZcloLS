@@ -70,8 +70,9 @@ public class OptionModalController extends HttpServlet {
                 }
                 System.out.println("i為:" + i);
 //                test
-                //判斷取得session或拿點擊資料夾號碼
-                if (i == 0) {
+                //判斷取得session或拿點擊資料夾號碼(試卷增、刪、修，後仍位於以點選的資料夾位置)
+                    
+                if (session.getAttribute("choosefile") != null) {
                     int choosefile = (Integer) session.getAttribute("choosefile");
                     pstmt2.setInt(1, choosefile);
                 } else {

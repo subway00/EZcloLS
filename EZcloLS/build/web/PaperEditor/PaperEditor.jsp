@@ -64,7 +64,7 @@
         <div class="container-fluid">        
             <div class="header row align-items-end">
                 <div class="logo col-6 col-md-8 d-flex align-items-end">
-                    <h1><a href="/EZcloL"><img src="/EZcloLS/img/logo-f.svg" alt=""/></a></h1>
+                    <h1><a href="#"><img src="/EZcloLS/img/logo-f.svg" alt=""/></a></h1>
                     <p>&nbsp;&nbsp;&nbsp;</p>
                     <b class="d-none d-md-block">Memorize Vacabulary By Cloze</b> 
                 </div>

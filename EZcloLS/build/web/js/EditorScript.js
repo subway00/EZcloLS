@@ -1,15 +1,13 @@
 // JavaScript Document
 
 $(document).ready(function () {
-    var action = "mouseover";
-    $("#text-cloze-bar").on('mouseenter', "#cloze_toolbar", function show(event) {
-        $("#cloze_toolbar").animate({left: '0px'});
+    $("#cloze_toolbar").mouseenter( function () {
+        $("#cloze_toolbar").stop(true,false).animate({left: '0px'});    console.log("t");
     });
     
-    $("#text-cloze-bar").on('mouseleave', "#cloze_toolbar",     function hide(event) {
-        $("#cloze_toolbar").animate({left: '-137px'});
+    $("#cloze_toolbar").mouseleave( function () {
+        $("#cloze_toolbar").stop(true,false).animate({left: '-137px'}); console.log("t");
     });
-
 
 
 });
