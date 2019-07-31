@@ -26,13 +26,23 @@ public class NewTestController extends HttpServlet {
     DBConnectModel dbcm;
     RequestDispatcher rd;
     String query = "INSERT INTO Test (T_Name, T_Able, F_Number) VALUES ( ?, 1, ?)";
-    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime \n"
+    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime,  R_TestTime, MAX(R_Number) \n"
             + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
             + "ON F.F_Number = T.F_Number\n"
             + "LEFT JOIN Result AS R\n"
             + "ON T.T_Number = R.T_Number\n"
             + "WHERE F.F_Number=? AND T_Able=1\n"
+            + "GROUP BY T_Name, T.T_Number, T_BuildTime, R_TestTime\n"
             + "ORDER BY T_Number";
+//    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R.R_TestTime\n"
+//            + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
+//            + "ON F.F_Number = T.F_Number\n"
+//            + "LEFT JOIN Result AS R\n"
+//            + "ON T.T_Number = R.T_Number\n"
+//            + "INNER JOIN (SELECT R2.T_Number, MAX(R2.R_Number) AS MAX_T_Number FROM Result AS R2 GROUP BY R2.T_Number) AS R3\n"
+//            + "ON R.T_Number=R3.T_Number AND R.R_Number =R3.MAX_T_Number\n"
+//            + "WHERE F.F_Number=? AND T_Able=1\n"
+//            + "ORDER BY T_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,7 +61,7 @@ public class NewTestController extends HttpServlet {
                 Integer choosefile = (Integer) session.getAttribute("choosefile");
 //                System.out.println("choosefilesession:      " + choosefile);
                 if (session.getAttribute("choosefile") == null) {
-                      out.write("<p>" + 0 + "</p>");
+                    out.write("<p>" + 0 + "</p>");
 //                    request.setAttribute("NoneClick", 0);
                 } else {
                     //new test

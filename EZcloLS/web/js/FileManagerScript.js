@@ -98,7 +98,7 @@ $(function () {
                 OptionFileModal();
                 bindModal();
                 closeModal();
-                
+
             })
         }
     })
@@ -148,22 +148,30 @@ $(function () {
     })
     //reverse PW
     $(document).on("click", "#reversePwbtn", function () {
-        var checkPW1 = pw1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
-        var checkPW2 = pw2.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
-        var checkPW3 = pw1.match(/^\s/);
-        var checkPW4 = pw2.match(/^\s/);
-        if (!checkPW1 || !checkPW2 || !checkPW3 || !checkPW4 ) {
-            $("#exampleModalLong").find("p").text("輸入格式錯誤，請重新輸入");
+        var pw1name = $("#accIF_pw1").val();
+        var pw2name = $("#accIF_pw2").val();
+        if (!pw1name || !pw2name) {
+            alert("尚未輸入密碼，請重新輸入");
         } else {
-            $.post("/EZcloLS/ReversePw", {pw: pw2});
-            bindModal();
-            closeModal();
-            $("#accIF_pw1").val("");
-            $("#accIF_pw2").val("");
-            alert("密碼變更成功");
+            var checkPW1 = pw1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
+            var checkPW2 = pw2.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
+            var checkPW3 = pw1.match(/^\s/);
+            var checkPW4 = pw2.match(/^\s/);
+            if (!checkPW1 || !checkPW2 || !checkPW3 || !checkPW4) {
+                $("#exampleModalLong").find("p").text("輸入格式錯誤，請重新輸入");
+            } else {
+                $.post("/EZcloLS/ReversePw", {pw: pw2});
+                bindModal();
+                closeModal();
+                $("#accIF_pw1").val("");
+                $("#accIF_pw2").val("");
+                alert("密碼變更成功");
+            }
         }
+        $("#accIF_pw1").val("");
+        $("#accIF_pw2").val("");
     })
-    
+
 });
 function ableFile() {
     $.get("/EZcloLS/FileManager/AbleFile.jsp", function (data) {
@@ -236,14 +244,14 @@ function nameProtect(name) {
     var strlength = name.length;
     var checkname = strlength <= 20;
     var checkNameSpace = name.match(/^\s/);
-
+    console.log(checkNameSpace)
     if (checkinjection) {
         alertString = "請您不要在引數中輸入特殊字元和SQL關鍵字";
         yn = true;
     } else if (!checkname) {
         alertString = "超出最大名稱長度限制，請重新輸入";
         yn = true;
-    } else if (checkNameSpace) {
+    } else if (checkNameSpace || !name) {
         alertString = "尚未輸入名稱，請重新輸入";
         yn = true;
     } else {
@@ -253,7 +261,7 @@ function nameProtect(name) {
     return yn;
 }
 function examScroll() {
-    
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function bindModal() {

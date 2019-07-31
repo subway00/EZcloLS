@@ -26,21 +26,23 @@ public class AbleTestController extends HttpServlet {
     ArrayList<TestModel> arr;
     DBConnectModel dbcm;
     String searchfile = "SELECT F_Number FROM FileFolder WHERE F_Able=1 AND F_Name=?";
-    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime \n"
+    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime,  R_TestTime, MAX(R_Number) \n"
             + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
             + "ON F.F_Number = T.F_Number\n"
             + "LEFT JOIN Result AS R\n"
             + "ON T.T_Number = R.T_Number\n"
             + "WHERE F.F_Number=? AND T_Able=1\n"
+            + "GROUP BY T_Name, T.T_Number, T_BuildTime, R_TestTime\n"
             + "ORDER BY T_Number";
-//    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime=(SELECT R_TestTime FROM Result WHERE MAX(R.R_Number)) \n"
+//    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime\n"
 //            + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
 //            + "ON F.F_Number = T.F_Number\n"
 //            + "LEFT JOIN Result AS R\n"
 //            + "ON T.T_Number = R.T_Number\n"
+//            + "INNER JOIN (SELECT R2.T_Number, MAX(R2.R_Number)  AS MAX_T_Number FROM Result AS R2 GROUP BY R2.T_Number) AS R3\n"
+//            + "ON R.T_Number=R3.T_Number AND R.R_Number =R3.MAX_T_Number\n"
 //            + "WHERE F.F_Number=? AND T_Able=1\n"
-//            + "GROUP BY T_Name, T.T_Number, T_BuildTime\n"
-//            + "ORDER BY T.T_Number";
+//            + "ORDER BY T_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
