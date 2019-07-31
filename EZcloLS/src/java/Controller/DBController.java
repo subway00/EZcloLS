@@ -7,9 +7,10 @@ package Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.ContentValues;
@@ -18,16 +19,15 @@ import model.DBConnectModel;
 public class DBController {
 
     private DBConnectModel dbcm;
-    private Statement stmt;
     private Connection conn;
+    private PreparedStatement pstmt;
 
     public DBController() {
         dbcm = new DBConnectModel();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
             conn = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
-            stmt = conn.createStatement();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -42,9 +42,12 @@ public class DBController {
 
     public void insert(String Table, ContentValues values) {
         try {
-            String query = "insert into " + Table + " (" + values.getKeys() + ") values (" + values.getValues() + ");";
+            String query = "insert into " + Table + " (" + values.getKeyString() + ") values ("
+                    + getBlock(values.getCount()) + ");";
             System.out.println(query);
-            stmt.execute(query);
+            pstmt = conn.prepareStatement(query);
+            charge(pstmt, values);
+            pstmt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,9 +55,11 @@ public class DBController {
 
     public void update(String Table, ContentValues values, String limit) {
         try {
-            String query = "update " + Table + " set " + values.getTable() + " where " + limit + ";";
+            String query = "update " + Table + " set " + getBlock(values) + " where " + limit + ";";
             System.out.println(query);
-            stmt.execute(query);
+            pstmt = conn.prepareStatement(query);
+            charge(pstmt, values);
+            pstmt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -64,21 +69,64 @@ public class DBController {
         try {
             String query = "select " + String.join(",", values) + " from " + Table + " where " + limit + ";";
             System.out.println(query);
-            return stmt.executeQuery(query);
+            pstmt = conn.prepareStatement(query);
+            return pstmt.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    public void closeDB(){
+
+    public void closeDB() {
         try {
-            stmt.close();
+            pstmt.close();
             conn.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    private String getBlock(int size) {
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result = result.concat("?");
+            if (i < size - 1) {
+                result = result.concat(",");
+            }
+        }
+        return result;
+    }
+
+    private String getBlock(ContentValues values) {
+        String result = "";
+        ArrayList<String> keys = values.getKeys();
+
+        int index = 1;
+        for (String key : keys) {
+            result = result.concat(key);
+            result = result.concat("=?");
+            if (index < keys.size()) {
+                result = result.concat(",");
+            }
+            index++;
+        }
+        return result;
+    }
+
+    private void charge(PreparedStatement pstmt, ContentValues values) throws SQLException {
+        int index = 1;
+        for (Object obj : values.getValues()) {
+            if (obj instanceof String) {
+                pstmt.setString(index, (String) obj);
+            } else if (obj instanceof Integer) {
+                pstmt.setInt(index, (Integer) obj);
+            } else if (obj instanceof byte[]) {
+                pstmt.setBytes(index, (byte[]) obj);
+            } else {
+                pstmt.setObject(index, obj);
+            }
+            index++;
+        }
+    }
 
 }

@@ -11,17 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import model.ContentValues;
 import model.PaperModel;
-import model.ResultModel;
 import org.json.JSONObject;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class CheckAnswerServlet extends HttpServlet {
 
@@ -51,38 +43,36 @@ public class CheckAnswerServlet extends HttpServlet {
             result[i] = input[i].equals(comp[i]);
             if (result[i]) {
                 right++;
-            } 
-            else{
+            } else {
                 wrong++;
-            }   
+            }
         }
-        blk=right+wrong;
+        blk = right + wrong;
 
         ContentValues cv = new ContentValues();
-        cv.putInt("R_Right", right);
-        cv.putInt("R_Wrong", wrong);
-        cv.putCMD("R_TestTime", "GetDate()");
-        cv.putInt("T_Number", Integer.parseInt(num));
+        cv.put("R_Right", right);
+        cv.put("R_Wrong", wrong);
+        cv.put("T_Number", Integer.parseInt(num));
 
         dbc.insert("EZclo.dbo.Result", cv);
 
         //records
         ResultSet rs = dbc.select("EZclo.dbo.Result", new String[]{"R_Right", "R_Wrong"}, "T_Number=" + num);
-        
+
         try {
             while (rs != null && rs.next()) {
                 p_count++;
                 t_right += rs.getInt("R_Right");
                 t_blk += rs.getInt("R_Right") + rs.getInt("R_Wrong");
             }
-            rate = t_right*100f/t_blk;
-            
+            rate = t_right * 100f / t_blk;
+
         } catch (SQLException ex) {
             Logger.getLogger(CheckAnswerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         jo.append("P_Count", p_count);
-        jo.append("Score", right+"/"+blk);
+        jo.append("Score", right + "/" + blk);
         jo.append("T_Rate", String.format("%.2f", rate));
         jo.append("T_Right", t_right);
         jo.append("T_Block", t_blk);

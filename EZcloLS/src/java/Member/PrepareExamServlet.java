@@ -6,14 +6,9 @@ package Member;
  * and open the template in the editor.
  */
 import Controller.DBController;
-import model.DBConnectModel;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -57,8 +52,8 @@ public class PrepareExamServlet extends HttpServlet {
         try {
             if (rs != null && rs.next()) {
                 paper.setName(rs.getString("T_Name"));
-                paper.setContent(rs.getString("T_Content"));
-                paper.setLetter(rs.getString("T_Letter"));
+                paper.setContent(rs.getBytes("T_Content"));
+                paper.setLetter(rs.getBytes("T_Letter"));
                 paper.setT_number(Integer.parseInt(T_Number));
             }
         } catch (SQLException ex) {

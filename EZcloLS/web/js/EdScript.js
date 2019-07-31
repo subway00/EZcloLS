@@ -2,7 +2,6 @@
 
 function construct_paper_s() {
     var content = document.getElementById("content");
-
     content.addEventListener("input", function () {
         if (content.childElementCount === 0) {
             content.innerHTML = "<p class='paragraph'><br></p>";

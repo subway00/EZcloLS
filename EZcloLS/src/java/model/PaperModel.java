@@ -68,6 +68,20 @@ public class PaperModel {
     public void setLetter(String letter) {
         this.letter = letter;
     }
+    
+    
+    public void setContent(byte[] content) {
+        if(content!=null){
+            this.content = new String(content);
+        }
+    }
+
+    public void setLetter(byte[] letter) {
+        if(letter!=null){
+            
+            this.letter = new String(letter);
+        }
+    }
 
     public void setTime(Date time) {
         this.time = time;

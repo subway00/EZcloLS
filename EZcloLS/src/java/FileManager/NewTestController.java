@@ -26,7 +26,6 @@ public class NewTestController extends HttpServlet {
     DBConnectModel dbcm;
     RequestDispatcher rd;
     String query = "INSERT INTO Test (T_Name, T_Able, F_Number) VALUES ( ?, 1, ?)";
-//    String searchquery = "SELECT T_Name, T_Number, T_BuildTime FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
     String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime \n"
             + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
             + "ON F.F_Number = T.F_Number\n"

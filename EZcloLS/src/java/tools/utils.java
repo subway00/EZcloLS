@@ -119,4 +119,15 @@ public class utils {
         ImageIO.write((RenderedImage)image,"png",new File("origin,ong"));
     }
     
+    public static byte[] str2bts(String value){
+        String[] temp = value.split(",");
+        byte[] result = new byte[temp.length];
+        
+        int index = 0;
+        for(String tmp:temp){
+            result[index] = Byte.parseByte(tmp);
+            index++;
+        }
+        return result;
+    }
 }

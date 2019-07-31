@@ -7,7 +7,6 @@ package Member;
 
 import Controller.DBController;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -38,7 +37,6 @@ public class ConstructExam extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
 
         //get parameters
         String T_Number = request.getParameter("T_Number");
@@ -50,19 +48,19 @@ public class ConstructExam extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("/PaperExam/ExamPanel.jsp");
         rd.forward(request, response);
     }
-    
+
     private PaperModel getPaperContext(String T_Number) {
         DBController dbc = new DBController();
         ResultSet rs = dbc.select("EZclo.dbo.Test",
-                new String[]{"T_Name", "T_Content","T_Letter"},
+                new String[]{"T_Name", "T_Content", "T_Letter"},
                 "T_Number = " + T_Number);
 
         PaperModel paper = new PaperModel();
         try {
             if (rs != null && rs.next()) {
                 paper.setName(rs.getString("T_Name"));
-                paper.setContent(rs.getString("T_Content"));
-                paper.setLetter(rs.getString("T_Letter"));
+                paper.setContent(rs.getBytes("T_Content"));
+                paper.setLetter(rs.getBytes("T_Letter"));
                 paper.setT_number(Integer.parseInt(T_Number));
             }
         } catch (SQLException ex) {

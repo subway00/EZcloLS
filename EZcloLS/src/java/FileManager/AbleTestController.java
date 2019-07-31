@@ -33,6 +33,14 @@ public class AbleTestController extends HttpServlet {
             + "ON T.T_Number = R.T_Number\n"
             + "WHERE F.F_Number=? AND T_Able=1\n"
             + "ORDER BY T_Number";
+//    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime=(SELECT R_TestTime FROM Result WHERE MAX(R.R_Number)) \n"
+//            + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
+//            + "ON F.F_Number = T.F_Number\n"
+//            + "LEFT JOIN Result AS R\n"
+//            + "ON T.T_Number = R.T_Number\n"
+//            + "WHERE F.F_Number=? AND T_Able=1\n"
+//            + "GROUP BY T_Name, T.T_Number, T_BuildTime\n"
+//            + "ORDER BY T.T_Number";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,7 +54,7 @@ public class AbleTestController extends HttpServlet {
                     PreparedStatement pstmt2 = con.prepareStatement(searchtestINF);) {
 
                 //get sesssion
-                 int F_Number = 0;
+                int F_Number = 0;
 //               
                 sessionGetSet(F_Number, session);
                 String selectfile = request.getParameter("clickfile");
@@ -76,7 +84,7 @@ public class AbleTestController extends HttpServlet {
                 request.setAttribute("ableTest", arr);
                 request.setAttribute("IndexProducer", index);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -87,7 +95,7 @@ public class AbleTestController extends HttpServlet {
             System.out.println("No session");
         } else {
             System.out.println("Y session");
-             F_Number = (Integer) session.getAttribute("choosefile");
+            F_Number = (Integer) session.getAttribute("choosefile");
         }
     }
 

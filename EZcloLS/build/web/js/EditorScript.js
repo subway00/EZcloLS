@@ -1,12 +1,14 @@
 // JavaScript Document
 
 $(document).ready(function () {
-    $("#cloze_toolbar").mouseenter( function () {
-        $("#cloze_toolbar").stop(true,false).animate({left: '0px'});    console.log("t");
+    $("#cloze_toolbar").mouseenter(function () {
+        $("#cloze_toolbar").stop(true, false).animate({left: '0px'});
+        console.log("t");
     });
-    
-    $("#cloze_toolbar").mouseleave( function () {
-        $("#cloze_toolbar").stop(true,false).animate({left: '-137px'}); console.log("t");
+
+    $("#cloze_toolbar").mouseleave(function () {
+        $("#cloze_toolbar").stop(true, false).animate({left: '-137px'});
+        console.log("t");
     });
 
 
@@ -103,20 +105,14 @@ function save_s(f_num, t_num) {
         input[i].setAttribute("readOnly", true);
     }
 
-    var contentxt = content.innerHTML.replace(/'/g, "''");
-    var contentxt = contentxt.replace(/&nbsp;/g, " ");
-    
-    var answertxt = letter.innerHTML.replace(/'/g, "''");
-    var answertxt = answertxt.replace(/&nbsp;/g, " ");
-    
-    console.log(contentxt);
-    console.log(answertxt);
+    var contentxt = stringToByte(content.innerHTML);
+    var answertxt = stringToByte(letter.innerHTML);
+
     var data =
             "T_Name=" + name +
             "&T_Content=" + contentxt +
             "&T_Letter=" + answertxt +
             "&T_Number=" + t_num;
-
 
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -222,10 +218,16 @@ function cloze() {
     console.log("cloze:true");
 
     var txt = select.getRangeAt(0).toString();
-    var buffer = ""
+    var buffer = "";
+    
+    var regExp =/^['|\w|\s ]+$/;
+    if(!regExp.test(txt)){
+        return;
+    }
+    
     txt = txt.split(" ");
-
     for (var i = 0; i < txt.length; i++) {
+
         if (txt[i] !== "") {
             var answerNode = doc.createElement("input");
             answerNode.readOnly = true;
@@ -264,6 +266,29 @@ function setState(state) {
     }
 }
 
-function readme() {
-    $()
+function stringToByte(str) {
+    var bytes = new Array();
+    var len, c;
+    len = str.length;
+    for (var i = 0; i < len; i++) {
+        c = str.charCodeAt(i);
+        if (c >= 0x010000 && c <= 0x10FFFF) {
+            bytes.push(((c >> 18) & 0x07) | 0xF0);
+            bytes.push(((c >> 12) & 0x3F) | 0x80);
+            bytes.push(((c >> 6) & 0x3F) | 0x80);
+            bytes.push((c & 0x3F) | 0x80);
+        } else if (c >= 0x000800 && c <= 0x00FFFF) {
+            bytes.push(((c >> 12) & 0x0F) | 0xE0);
+            bytes.push(((c >> 6) & 0x3F) | 0x80);
+            bytes.push((c & 0x3F) | 0x80);
+        } else if (c >= 0x000080 && c <= 0x0007FF) {
+            bytes.push(((c >> 6) & 0x1F) | 0xC0);
+            bytes.push((c & 0x3F) | 0x80);
+        } else {
+            bytes.push(c & 0xFF);
+        }
+    }
+    return bytes;
 }
+
+

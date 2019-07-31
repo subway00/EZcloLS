@@ -12,14 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.http.HttpSession;
+import model.TestModel;
 
 @WebServlet(name = "RenameTestController", urlPatterns = {"/RenameTestController"})
 public class RenameTestController extends HttpServlet {
 
-    ArrayList<String> arr;
-    String searchquery = "SELECT T_Name FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
+    ArrayList<TestModel> arr;
+//    String searchquery = "SELECT T_Name FROM Test WHERE T_Able=1 AND F_Number=? ORDER BY T_Number";
     String query = "UPDATE Test SET T_Name=? WHERE T_Number=? AND T_Able='1'";
+    String searchtestINF = "SELECT T_Name, T.T_Number, T_BuildTime, R_TestTime \n"
+            + "FROM FileFolder AS F LEFT JOIN Test AS T\n"
+            + "ON F.F_Number = T.F_Number\n"
+            + "LEFT JOIN Result AS R\n"
+            + "ON T.T_Number = R.T_Number\n"
+            + "WHERE F.F_Number=? AND T_Able=1\n"
+            + "ORDER BY T_Number";
     DBConnectModel dbcm;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -32,13 +41,13 @@ public class RenameTestController extends HttpServlet {
             try (
                     Connection con = DriverManager.getConnection(dbcm.getUrl(), dbcm.getUser(), dbcm.getPw());
                     PreparedStatement pstmt = con.prepareStatement(query);
-                    PreparedStatement pstmt2 = con.prepareCall(searchquery)) {
+                    PreparedStatement pstmt2 = con.prepareCall(searchtestINF)) {
 
                 String rename = request.getParameter("rename");
                 String thistestnum = request.getParameter("testnumber");
-                int tnumber = Integer.parseInt(thistestnum);
+                int t_number = Integer.parseInt(thistestnum);
                 pstmt.setString(1, rename);
-                pstmt.setInt(2, tnumber);
+                pstmt.setInt(2, t_number);
                 pstmt.executeUpdate();
                 //display test
                 Integer choosefile = (Integer) session.getAttribute("choosefile");
@@ -47,7 +56,10 @@ public class RenameTestController extends HttpServlet {
                 arr = new ArrayList<>();
                 while (result.next()) {
                     String tname = result.getString("T_Name");
-                    arr.add(tname);
+                    int tnumber = result.getInt("T_Number");
+                    Date tbuildtime = result.getDate("T_BuildTime");
+                    Date rtesttime = result.getDate("R_TestTime");
+                    arr.add(new TestModel(tnumber, tname, tbuildtime, rtesttime));
                 }
                 request.setAttribute("displayTest", arr);
             }

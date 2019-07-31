@@ -9,6 +9,7 @@ import Controller.DBController;
 import model.DBConnectModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ContentValues;
 import tools.utils;
+import static tools.utils.str2bts;
 
 /**
  *
@@ -49,9 +51,9 @@ public class SavePaperServlet extends HttpServlet {
 
         DBController dbc = new DBController();
         ContentValues values = new ContentValues();
-        values.putString("T_Name", T_Name);
-        values.putString("T_Content", T_Content);
-        values.putString("T_Letter", T_Letter);
+        values.put("T_Name", T_Name);
+        values.put("T_Content", str2bts(T_Content));
+        values.put("T_Letter", str2bts(T_Letter));
         dbc.update("EZclo.dbo.Test", values, " T_Number=" + T_Number);
 
         dbc.closeDB();

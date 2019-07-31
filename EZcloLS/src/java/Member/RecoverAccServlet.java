@@ -76,7 +76,7 @@ public class RecoverAccServlet extends HttpServlet {
 
                 //update new pd
                 ContentValues cv = new ContentValues();
-                cv.putString(" M_PW", new_pwd);
+                cv.put(" M_PW", new_pwd);
                 dbc.update("EZclo.dbo.Member", cv, " M_Number= " + uid);
 
                 //send email

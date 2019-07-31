@@ -84,7 +84,7 @@ public class RegisterController extends HttpServlet {
                 EmailModel em = new EmailModel();
                 em.setTo(user.getEmail());
                 em.setSubject("信箱驗證");
-                em.setContext("<a href='http://172.16.13.22:8084/EZcloLS/ActivationServlet?M_Email=" + em.getTo() + "'>驗證連結</a>");
+                em.setContext("<a href='http://172.16.13.30:8084/EZcloLS/ActivationServlet?M_Email=" + em.getTo() + "'>驗證連結</a>");
                 utils.sendEmail(em);
                 utils.setWarning(out, "Register success! Please check email for acount activation.", "/EZcloLS/index/login.jsp");
             } else {
@@ -122,9 +122,9 @@ public class RegisterController extends HttpServlet {
     public boolean updateInfo(MemberModel user) {
         DBController dbc = new DBController();
         ContentValues values = new ContentValues();
-        values.putString("M_PW", user.getPwd());
-        values.putString("M_Gender", user.getGender());
-        values.putString("M_Born", user.getBorn_date_s());
+        values.put("M_PW", user.getPwd());
+        values.put("M_Gender", user.getGender());
+        values.put("M_Born", user.getBorn_date_s());
         dbc.update("EZclo.dbo.Member", values, " M_Number= " + user.getM_Number());
         return true;
     }
@@ -132,10 +132,10 @@ public class RegisterController extends HttpServlet {
     public boolean createNewAccount(MemberModel user) {
         DBController dbc = new DBController();
         ContentValues values = new ContentValues();
-        values.putString("M_Email", user.getEmail());
-        values.putString("M_Born", user.getBorn_date_s());
-        values.putString("M_PW", user.getPwd());
-        values.putString("M_Gender", user.getGender());
+        values.put("M_Email", user.getEmail());
+        values.put("M_Born", user.getBorn_date_s());
+        values.put("M_PW", user.getPwd());
+        values.put("M_Gender", user.getGender());
         dbc.insert("EZclo.dbo.Member", values);
  
         return true;

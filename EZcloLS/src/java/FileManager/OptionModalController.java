@@ -53,12 +53,7 @@ public class OptionModalController extends HttpServlet {
                 index = new IndexProducerModel();
                 request.setAttribute("ablefile", arr);
                 request.setAttribute("IndexProducer", index);
-//                click file
-//                String clickfile = request.getParameter("clickfile");
-//                System.out.println("clickfile  " + clickfile);
-//                pstmt1.setString(1, clickfile);
-//                ResultSet result2 = pstmt1.executeQuery();
-//                int i = 0;
+//                click file get test and after modify get test 
                 int fnumber = 0;
                 if (request.getParameter("clickfile") != null) {
                     System.out.println("clickfile request call");
@@ -74,23 +69,6 @@ public class OptionModalController extends HttpServlet {
                     }
                 }
                 pstmt3.setInt(1, fnumber);
-                //get F_Number
-//                i = result2.getInt("F_Number");
-//                System.out.println("i為:" + i);
-//                test
-                //判斷取得session或拿點擊資料夾號碼(試卷增、刪、修，後仍位於以點選的資料夾位置)
-//                if (i != 0) {
-//                    pstmt3.setInt(1, i);
-//                } else {
-//                    if (session.getAttribute("choosefile") != null) {
-//                        int choosefile = (Integer) session.getAttribute("choosefile");
-//                        pstmt3.setInt(1, choosefile);
-//                    }
-//                }
-
-//else if (i != 0) {
-//                    pstmt2.setInt(1, i);
-//                }
                 ResultSet result3 = pstmt3.executeQuery();
                 arr2 = new ArrayList<>();
                 while (result3.next()) {
@@ -106,6 +84,7 @@ public class OptionModalController extends HttpServlet {
         }
 
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

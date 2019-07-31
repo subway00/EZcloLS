@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
                 System.out.println("M_Number        " + index);
                 //hidden uid
                 //String uid = utils.generatePassCode(index);
-                //values.putString("M_Uid",uid);
+                //values.put("M_Uid",uid);
                 //dbc.update("EZclo.dbo.Member", values,"M_Number="+ index);
 
                 session.setAttribute("email", email);

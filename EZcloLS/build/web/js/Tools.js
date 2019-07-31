@@ -23,3 +23,4 @@ function stop_loading(){
         document.removeChild(p);
     }
 }
+

@@ -3,7 +3,7 @@
 function prepareExam() {
     var ans = answer.getElementsByTagName("input");
     for (var i = 0; i < ans.length; i++) {
-        ans[i].setAttribute("placeholder",ans[i].name); 
+        ans[i].setAttribute("placeholder", ans[i].name);
     }
 }
 
@@ -23,23 +23,24 @@ function Ajax_submit_paper(num) {
     var answer = getfocus().getElementById("answer");
     var con = content.getElementsByTagName("input");
     var ans = answer.getElementsByTagName("input");
+    var regExp = /^['|\w|\s ]+$/;
 
     var inp = new Array();
     for (var i = 0; i < con.length; i++) {
-        inp.push(con[i].value);
+        inp.push(con[i].value.match(regExp));
     }
     var comp = new Array();
     for (var i = 0; i < ans.length; i++) {
-        comp.push(ans[i].name);
+        comp.push(ans[i].name.match(regExp));
     }
 
     var data = "number=" + num;
-    for(var i = 0;i<inp.length;i++){
-        data = data.concat("&input=",inp[i]);
+    for (var i = 0; i < inp.length; i++) {
+        data = data.concat("&input=", inp[i]);
     }
-    
-    for(var i = 0;i<comp.length;i++){
-        data = data.concat("&comp=",comp[i]);
+
+    for (var i = 0; i < comp.length; i++) {
+        data = data.concat("&comp=", comp[i]);
     }
 
     var xhttp = new XMLHttpRequest();
@@ -49,15 +50,14 @@ function Ajax_submit_paper(num) {
             var rs = jsObj.Result[0];
 
             for (var i = 0; i < con.length; i++) {
-                con[i].setAttribute("readonly",true);
-                if (rs[i]) {      
+                con[i].setAttribute("readonly", true);
+                if (rs[i]) {
                     con[i].setAttribute("style", "background-color:aquamarine");
-                }
-                else{
+                } else {
                     con[i].setAttribute("style", "background-color:pink");
                 }
             }
-            
+
             document.getElementById("opt_exexam").classList.remove("d-none");
             document.getElementById("opt_exam").classList.add("d-none");
 
@@ -69,7 +69,7 @@ function Ajax_submit_paper(num) {
             document.getElementById("result_panel").style.display = "inline-block";
         }
     }
-    
+
     xhttp.open("POST", "CheckAnswerServlet", true);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
     xhttp.send(data);

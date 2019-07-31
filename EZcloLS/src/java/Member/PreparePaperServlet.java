@@ -5,6 +5,7 @@ package Member;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Controller.DBController;
 import model.DBConnectModel;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ContentValues;
 import model.PaperModel;
 
 /**
@@ -31,31 +33,21 @@ public class PreparePaperServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        DBConnectModel dbc = new DBConnectModel();
+        DBController dbc = new DBController();
         String T_Number = request.getParameter("T_Number");
 
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection conn = DriverManager.getConnection(dbc.getUrl(), dbc.getUser(), dbc.getPw());
-            Statement stmt = conn.createStatement();
 
-            String query = "select T_Name,T_Content,T_Letter,F_Number from EZclo.dbo.Test "
-                    + "where "
-                    + "T_Number = " + T_Number;
-
-            ResultSet rs = stmt.executeQuery(query);
+            ResultSet rs = dbc.select("EZclo.dbo.Test",new String[]{"T_Name","T_Content","T_Letter","F_Number"}, "T_Number = " + T_Number);
             PaperModel paper = new PaperModel("", "", "", null, -1, -1);
 
             if (rs != null && rs.next()) {
                 paper.setName(rs.getString("T_Name"));
-                paper.setContent(rs.getString("T_Content"));
-                paper.setLetter(rs.getString("T_Letter"));
                 paper.setF_number(Integer.parseInt(rs.getString("F_Number")));
                 paper.setT_number(Integer.parseInt(T_Number));
             }
             
-            stmt.close();
-            conn.close();
+            dbc.closeDB();
             
             request.setAttribute("Paper", paper);
 

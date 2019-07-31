@@ -138,6 +138,7 @@ $(function () {
     $(document).on("blur", "#accIF_pw1", function () {
         $("#exampleModalLong").find("p").text("");
         pw1 = $(this).val();
+        console.log(pw1);
     })
     $(document).on("blur", "#accIF_pw2", function () {
         $("#exampleModalLong").find("p").text("");
@@ -149,7 +150,9 @@ $(function () {
     $(document).on("click", "#reversePwbtn", function () {
         var checkPW1 = pw1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
         var checkPW2 = pw2.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
-        if (!checkPW1 || !checkPW2) {
+        var checkPW3 = pw1.match(/^\s/);
+        var checkPW4 = pw2.match(/^\s/);
+        if (!checkPW1 || !checkPW2 || !checkPW3 || !checkPW4 ) {
             $("#exampleModalLong").find("p").text("輸入格式錯誤，請重新輸入");
         } else {
             $.post("/EZcloLS/ReversePw", {pw: pw2});

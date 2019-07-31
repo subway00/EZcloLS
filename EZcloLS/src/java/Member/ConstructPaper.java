@@ -52,16 +52,14 @@ public class ConstructPaper extends HttpServlet {
 
             if (rs != null && rs.next()) {
                 paper.setName(rs.getString("T_Name"));
-                paper.setContent(rs.getString("T_Content"));
-                paper.setLetter(rs.getString("T_Letter"));
+                paper.setContent(rs.getBytes("T_Content"));
+                paper.setLetter(rs.getBytes("T_Letter"));
                 paper.setT_number(Integer.parseInt(T_Number));
             }
             
             dbc.closeDB();
             
             request.setAttribute("Paper", paper);
-
-            System.out.println(rs);
             RequestDispatcher rd = request.getRequestDispatcher("/PaperEditor/EdPanel.jsp");
             rd.forward(request, response);
 
