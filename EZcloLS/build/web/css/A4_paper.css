@@ -1,7 +1,5 @@
 .page {
-  zoom:1.2;
   width: 21cm;
-  min-height: 29.7cm;
   padding: 2cm;
   margin: 1cm auto;
   border: 1px #D3D3D3 solid;
@@ -12,7 +10,6 @@
 
 .subpage {
   padding: 1cm;
-  height: 256mm;
   outline: 2cm #FFEAEA solid;
 }
 

@@ -8,7 +8,7 @@
 <link href="/EZcloLS/css/MenuStyle.css" rel="stylesheet" type="text/css">
 <div class="dropdown d-flex justify-content-end ">
     <button class="account-botton btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-        <span>一般會員 howard</span> 
+        <span>一般會員</span> 
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
         <!-- Button trigger modal 開始-->

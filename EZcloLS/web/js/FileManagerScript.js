@@ -155,9 +155,9 @@ $(function () {
         } else {
             var checkPW1 = pw1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
             var checkPW2 = pw2.match(/^(?=.*\d)(?=.*[a-zA-Z]).{6,}$/);
-            var checkPW3 = pw1.match(/^\s/);
-            var checkPW4 = pw2.match(/^\s/);
-            if (!checkPW1 || !checkPW2 || !checkPW3 || !checkPW4) {
+//            var checkPW3 = pw1.match(/^\s/);
+//            var checkPW4 = pw2.match(/^\s/);
+            if (!checkPW1 || !checkPW2 ) {
                 $("#exampleModalLong").find("p").text("輸入格式錯誤，請重新輸入");
             } else {
                 $.post("/EZcloLS/ReversePw", {pw: pw2});

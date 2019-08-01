@@ -64,13 +64,13 @@ public class RegisterController extends HttpServlet {
             int result = checkEmail(user);
             int returnState = register_none;
             boolean returnValue = false;
-            if (result == 2) {
+            if (result == active) {
                 returnState = register_none;
                 returnValue = false;
-            } else if (result == 1) {
+            } else if (result == noActive) {
                 returnState = register_work;
                 returnValue = updateInfo(user);
-            } else if (result == 0) {
+            } else if (result == noExist) {
                 returnState = register_work;
                 returnValue = createNewAccount( user);
             } else {

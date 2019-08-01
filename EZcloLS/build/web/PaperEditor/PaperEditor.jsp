@@ -80,7 +80,7 @@
                         <div class="input-group">
                             <input id = "name" type="text" minlength="1"  maxlength="20" class="form-control" placeholder="Original file name" aria-label="Recipient's username" aria-describedby="button-addon2" value="${Paper.getName()}">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-info" type="button" id="button-addon2">重新命名</button>
+                                <button disabled class="btn btn-info" type="button" id="button-addon2">試卷名稱</button>
                             </div>
                         </div>
                     </div>
